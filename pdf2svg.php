@@ -1,5 +1,5 @@
 <?php
-$tool_user_name = 'convert';
+$tool_user_name = 'svgworkaroundbot';
 
 include_once ( 'shared/common.php' ) ;
 error_reporting( E_ALL & ~E_NOTICE ); # Don't clutter the directory with unhelpful stuff

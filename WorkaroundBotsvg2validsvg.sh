@@ -4,13 +4,9 @@
 #created: 2019-02-20
 
 #for debugging
-echo "some data for the file $1 $2" >> debuginfo.txt
+#echo "some data for the file $1 $2" >> debuginfo.txt
 
-more $1 >>temp.txt
-
-more $2 >>tmp1.txt
-
-wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
+#wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
 
 export i=$1
 
@@ -64,6 +60,6 @@ sed -ri "s/font-weight=\"normal\"/font-weight=\"400\"/g" $i
 
 # rm $i
 
-cp $i tmp.svg
-
-cp $i $2
+#for debugging
+#cp $i tmp.svg
+mv $i $2

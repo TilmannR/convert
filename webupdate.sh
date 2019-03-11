@@ -9,3 +9,4 @@ unzip -o master.zip
 mv convert-master public_html
 
 chmod a+x public_html/WorkaroundBotsvg2validsvg.sh
+

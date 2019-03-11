@@ -6,9 +6,9 @@
 #for debugging
 echo "some data for the file $1 $2" >> debuginfo.txt
 
-more $1 >>tmp.txt
+more $1 >>temp.txt
 
-more $2 >>tmp.txt
+more $2 >>tmp1.txt
 
 wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
 
@@ -64,3 +64,4 @@ sed -ri "s/font-weight=\"normal\"/font-weight=\"400\"/g" $i
 
 # rm $i
 
+cp $i tmp.svg

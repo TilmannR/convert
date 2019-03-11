@@ -2,25 +2,22 @@
 <html>
 
 <head>
-<title>PDF2SVG</title>
+<title>SVG2SVG</title>
 <meta charset="UTF-8">
 </head>
 
 <body style="font-family:Arial,Helvetica,sans-serif;">
-<h1>Convert PDF to SVG</h1>
-<form action="pdf2svg.php" method="POST" enctype="multipart/form-data">
-<input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-<input type="file" name="file" id="file" accept="application/pdf" />
-<input type="submit" name="submit" value="Convert to SVG" />
-</form>
-
-<h1>Convert SVG to PNG</h1>
-<form action="svg2png.php" method="POST" enctype="multipart/form-data">
+<h1>Repair SVGs and make Workarounds for librsvg</h1>
+<form action="WorkaroundBotsvg2validsvg.sh" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
 <input type="file" name="file" id="file" accept="image/svg+xml" />
-<input type="submit" name="submit" value="Convert to PNG" />
+<input type="submit" name="submit" value="Convert to SVG" />
 <br />
-<input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> disable <a href="//wikipedia.org/wiki/anti-aliasing">anti-aliasing</a> (experimental)</label>
+<input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> run scour (not implemented)</label>
+<br />
+<input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> run svgcleaner (not implemented)</label>
+<br />
+<input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> run svgo (not implemented)</label>
 </form>
 
     <div style="height:100px;" class="od-spacer"></div>
@@ -29,6 +26,9 @@
       <div style="width:18%; border-bottom: 2px solid #A7D7F9; float: left;"> </div>
       <div style="width:18%; border-bottom: 2px solid #666; float: left;"> </div>
     </div>
-    <div style="clear:left; margin-top: 0.3em">This tool is maintained by <a href="//commons.wikimedia.org/wiki/User:Rillke">Rillke</a> and others. Issues and pull requests?  <a href="https://github.com/Rillke/convert">On GitHub</a>.</div>
+    <div style="clear:left; margin-top: 0.3em">This tool is maintained by <a href="//commons.wikimedia.org/wiki/User:JoKalliauer">Johannes Kalliauer</a>.
+    The source-code is available <a href="https://github.com/JoKalliauer/cleanupSVG">On GitHub</a>
+    <br/>
+    This website is based by a website of <a href="//commons.wikimedia.org/wiki/User:Rillke">Rillke</a> and others, source: <a href="https://github.com/Rillke/convert">GitHub</a>.</div>
 </body>
 </html>

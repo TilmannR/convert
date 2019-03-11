@@ -11,7 +11,7 @@ if ( !array_key_exists( 'file', $_FILES ) ) {
   die();
 }
 $uploadName = $_FILES['file']['tmp_name'];
-$fileName = $uploadName . '.pdf';
+$fileName = $uploadName . '.svg';
 $targetName = $fileName . '.svg';
 
 if ( $_FILES['file']['size'] > 5*0x100000 ) {
@@ -27,7 +27,7 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   die();
 }
 
-exec( 'pdf2svg ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
+exec( 'WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
 unlink( $fileName );
 
 $handle = fopen( $targetName, 'r' );

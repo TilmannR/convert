@@ -12,7 +12,7 @@ if ( !array_key_exists( 'file', $_FILES ) ) {
 }
 $uploadName = $_FILES['file']['tmp_name'];
 $fileName = $uploadName . '.svg';
-$targetName = $fileName . '.svg';
+$targetName = $fileName;
 
 if ( $_FILES['file']['size'] > 5*0x100000 ) {
   unlink( $uploadName );
@@ -58,6 +58,6 @@ if ( strlen( $content ) > 10*0x100000 ) {
 
 header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 header( 'Content-type: image/svg+xml' );
-header( 'Content-Disposition: attachment; filename="' . addslashes( $_FILES['file']['name'] ) . '"' );
+header( 'Content-Disposition: attachment; filename="' . addslashes( $_FILES['file']['name'] ) . '.svg"' );
 echo $content;
 die();

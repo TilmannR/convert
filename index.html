@@ -6,17 +6,21 @@
 <meta charset="UTF-8">
 </head>
     
-<?php
+
+    
+<body style="font-family:Arial,Helvetica,sans-serif;">
+    
+    <?php
 if ($_GET['run']) {
   # This code will run if ?run=true is set.
-  exec("/path/to/name.sh");
+  exec("WorkaroundBotsvg2validsvg.sh");
 }
 ?>
 
 <!-- This link will add ?run=true to your URL, myfilename.php?run=true -->
 <a href="?run=true">Click Me!</a>
     
-<body style="font-family:Arial,Helvetica,sans-serif;">
+    
 <h1>Repair SVGs and make Workarounds for librsvg</h1>
 <form action="WorkaroundBotsvg2validsvg.sh" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />

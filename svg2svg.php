@@ -58,6 +58,6 @@ if ( strlen( $content ) > 10*0x100000 ) {
 
 header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 header( 'Content-type: image/svg+xml' );
-header( 'Content-Disposition: attachment; filename="' . addslashes( $_FILES['file']['name'] ) . '.svg"' );
+header( 'Content-Disposition: attachment; filename="' . addslashes( $_FILES['file']['name'] ) . '"' );
 echo $content;
 die();

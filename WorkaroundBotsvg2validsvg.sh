@@ -3,6 +3,8 @@
 #Author: Johannes Kalliauer (JoKalliauer)
 #created: 2019-02-20
 
+#for debugging
+echo "some data for the file $1 $2" >> debuginfo.txt
 
 
 wget https://commons.wikimedia.org/wiki/Special:FilePath/$1

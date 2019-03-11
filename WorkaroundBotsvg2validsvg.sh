@@ -6,9 +6,9 @@
 #for debugging
 echo "some data for the file $1 $2" >> debuginfo.txt
 
-more $1
+more $1 >>tmp.txt
 
-more $2
+more $2 >>tmp.txt
 
 wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
 

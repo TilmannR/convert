@@ -9,29 +9,25 @@
 
     
 <body style="font-family:Arial,Helvetica,sans-serif;">
-    
-    <?php
-if ($_GET['run']) {
-  # This code will run if ?run=true is set.
-  exec("./WorkaroundBotsvg2validsvg.sh");
-}
-?>
 
-<!-- This link will add ?run=true to your URL, myfilename.php?run=true -->
-<a href="?run=true">Click Me!</a>
-    
-    
 <h1>Repair SVGs and make Workarounds for librsvg</h1>
 <form action="svg2svg.php" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
 <input type="file" name="file" id="file" accept="image/svg+xml" />
 <input type="submit" name="submit" value="Convert to SVG" />
 <br />
-<input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> run scour (not implemented)</label>
+<input type="checkbox" name="scour" value="1" id="scour" /><label for="scour"> run scour (not implemented)</label>
 <br />
-<input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> run svgcleaner (not implemented)</label>
+<input type="checkbox" name="svgcleaner" value="1" id="svgcleaner" /><label for="svgcleaner"> run svgcleaner (not implemented)</label>
 <br />
-<input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> run svgo (not implemented)</label>
+<input type="checkbox" name="svgo" value="1" id="svgo" /><label for="svgo"> run svgo (not implemented)</label>
+<br />
+<input type="checkbox" name="valid" value="1" id="valid" /><label for="valid"> make file valid (not implemented)</label>
+<br />
+<input type="checkbox" name="fallback" value="1" id="fallback" /><label for="fallback"> add fallback-fonts, replace fonts (not implemented)</label>
+<br />
+<input type="checkbox" name="extended" value="1" id="extended" /><label for="extended"> use extended version (not implemented)</label>
+
 </form>
 
     <div style="height:100px;" class="od-spacer"></div>
@@ -43,6 +39,6 @@ if ($_GET['run']) {
     <div style="clear:left; margin-top: 0.3em">This tool is maintained by <a href="//commons.wikimedia.org/wiki/User:JoKalliauer">Johannes Kalliauer</a>.
     The source-code is available <a href="https://github.com/JoKalliauer/cleanupSVG">On GitHub</a>
     <br/>
-    This website is based by a website of <a href="//commons.wikimedia.org/wiki/User:Rillke">Rillke</a> and others, source: <a href="https://github.com/Rillke/convert">GitHub</a>.</div>
+    This website is based on <a href="https://tools.wmflabs.org/convert/">https://tools.wmflabs.org/convert/</a> by <a href="//commons.wikimedia.org/wiki/User:Rillke">Rillke</a> and others, source: <a href="https://github.com/Rillke/convert">GitHub</a>.</div>
 </body>
 </html>

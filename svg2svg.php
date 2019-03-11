@@ -30,6 +30,14 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
 exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
 unlink( $fileName );
 
+$file = 'tmp.svg';
+// Öffnet die Datei, um den vorhandenen Inhalt zu laden
+$current = file_get_contents($file);
+// Fügt eine neue Person zur Datei hinzu
+$current .= "John Smith\n";
+// Schreibt den Inhalt in die Datei zurück
+file_put_contents($file, $current);
+
 $handle = fopen( $targetName, 'r' );
 
 if ( $handle === false ) {

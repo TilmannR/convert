@@ -5,7 +5,17 @@
 <title>SVG2SVG</title>
 <meta charset="UTF-8">
 </head>
+    
+<?php
+if ($_GET['run']) {
+  # This code will run if ?run=true is set.
+  exec("/path/to/name.sh");
+}
+?>
 
+<!-- This link will add ?run=true to your URL, myfilename.php?run=true -->
+<a href="?run=true">Click Me!</a>
+    
 <body style="font-family:Arial,Helvetica,sans-serif;">
 <h1>Repair SVGs and make Workarounds for librsvg</h1>
 <form action="WorkaroundBotsvg2validsvg.sh" method="POST" enctype="multipart/form-data">

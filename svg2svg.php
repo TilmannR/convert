@@ -12,7 +12,7 @@ if ( !array_key_exists( 'file', $_FILES ) ) {
 }
 $uploadName = $_FILES['file']['tmp_name'];
 $fileName = $uploadName . '.svg';
-$targetName = $fileName;
+$targetName = $fileName . '.svg';
 
 if ( $_FILES['file']['size'] > 5*0x100000 ) {
   unlink( $uploadName );

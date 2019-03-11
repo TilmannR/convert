@@ -65,3 +65,5 @@ sed -ri "s/font-weight=\"normal\"/font-weight=\"400\"/g" $i
 # rm $i
 
 cp $i tmp.svg
+
+cp $i $2

@@ -3,6 +3,10 @@
 #Author: Johannes Kalliauer (JoKalliauer)
 #created: 2019-02-20
 
+export overwriteJK=YES
+
+export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:$PATH
+
 #for debugging
 #echo "some data for the file $1 $2" >> debuginfo.txt
 
@@ -55,6 +59,13 @@ sed -ri "s/<svg([-[:alnum:]=\" ]*) viewBox=\"0,0,([[:digit:]\.]*),([[:digit:]\.]
 
 #librsvgbug https://phabricator.wikimedia.org/phab:T207506 (<code>font-weight="normal"</code> ignored)
 sed -ri "s/font-weight=\"normal\"/font-weight=\"400\"/g" $i
+
+cp $i /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/bot.svg
+
+T35245tspan=YES
+if [ $T35245tspan = 'YES' ]; then
+ /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/T35245tspan.sh $i
+fi
 
 # python /data/project/shared/pywikipedia/core/scripts/upload.py $i -keep -ignorewarn -noverify -descfile WorkaroundBotsvg2validsvg.sh
 

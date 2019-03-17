@@ -3,16 +3,31 @@
 #Author: Johannes Kalliauer (JoKalliauer)
 #created: 2019-02-20
 
+
+rm *.xml
+rm *.svg
+
+#wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
+
+
+
+
+echo i
+echo $i
+echo 1
+echo $1
+export i=$1
+
+
+
 export overwriteJK=YES
+#export botJK=YES
 
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:$PATH
 
 #for debugging
 #echo "some data for the file $1 $2" >> debuginfo.txt
 
-#wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
-
-export i=$1
 
 #remove empty flow Text in svg (everything else will be done by https://github.com/JoKalliauer/cleanupSVG/blob/master/Flow2TextByInkscape.sh )
 #    <flowRoot id="flowRoot3750" style="fill:black;font-family:Linux Libertine;font-size:64;line-height:100%;text-align:center;text-anchor:middle;writing-mode:lr" xml:space="preserve"/>
@@ -63,17 +78,17 @@ sed -ri "s/font-weight=\"normal\"/font-weight=\"400\"/g" $i
 T35245tspan=YES
 
 
-cp $i /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/bot.svg
+cp $i /data/project/svgworkaroundbot/public_html/bot.svg
 
 wait
 
 if [ $T35245tspan = 'YES' ]; then
- /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/T35245tspan.sh /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/bot.svg
+ /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/T35245tspan.sh /data/project/svgworkaroundbot/public_html/bot.svg
 fi
 
 wait
 
-mv -f /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/bot.svg $i
+mv -f /data/project/svgworkaroundbot/public_html/bot.svg $i
 
 # python /data/project/shared/pywikipedia/core/scripts/upload.py $i -keep -ignorewarn -noverify -descfile WorkaroundBotsvg2validsvg.sh
 

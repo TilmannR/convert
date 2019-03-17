@@ -77,18 +77,24 @@ sed -ri "s/font-weight=\"normal\"/font-weight=\"400\"/g" $i
 
 T35245tspan=YES
 
+#echo i,$i
 
-cp $i /data/project/svgworkaroundbot/public_html/bot.svg
+cp $i /data/project/svgworkaroundbot/bot.svg
+#cp $i /cygdrive/c/Users/jkalliau/Documents/GitHub/bot.svg
 
 wait
 
 if [ $T35245tspan = 'YES' ]; then
- /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/T35245tspan.sh /data/project/svgworkaroundbot/public_html/bot.svg
+ /data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/T35245tspan.sh /data/project/svgworkaroundbot/bot.svg
+ #/cygdrive/c/Users/jkalliau/Documents/GitHub/cleanupSVG/T35245tspan.sh $i
 fi
 
 wait
 
-mv -f /data/project/svgworkaroundbot/public_html/bot.svg $i
+#echo i,$i
+
+mv -f /data/project/svgworkaroundbot/bot.svg $i
+#mv /cygdrive/c/Users/jkalliau/Documents/GitHub/bot.svg $i
 
 # python /data/project/shared/pywikipedia/core/scripts/upload.py $i -keep -ignorewarn -noverify -descfile WorkaroundBotsvg2validsvg.sh
 
@@ -96,4 +102,5 @@ mv -f /data/project/svgworkaroundbot/public_html/bot.svg $i
 
 #for debugging
 #cp $i tmp.svg
+
 mv $i $2

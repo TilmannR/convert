@@ -1,5 +1,5 @@
 <?php
-$tool_user_name = 'convert';
+$tool_user_name = 'svgworkaroundbot';
 
 include_once ( 'shared/common.php' ) ;
 error_reporting( E_ALL & ~E_NOTICE ); # Don't clutter the directory with unhelpful stuff
@@ -11,7 +11,7 @@ if ( !array_key_exists( 'file', $_FILES ) ) {
   die();
 }
 $uploadName = $_FILES['file']['tmp_name'];
-$fileName = $uploadName . '.pdf';
+$fileName = $uploadName . '.svg';
 $targetName = $fileName . '.svg';
 
 if ( $_FILES['file']['size'] > 5*0x100000 ) {
@@ -27,8 +27,16 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   die();
 }
 
-exec( 'pdf2svg ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
+exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
 unlink( $fileName );
+
+$file = 'tmp.svg';
+// Öffnet die Datei, um den vorhandenen Inhalt zu laden
+$current = file_get_contents($file);
+// Fügt eine neue Person zur Datei hinzu
+$current .= "John Smith\n";
+// Schreibt den Inhalt in die Datei zurück
+file_put_contents($file, $current);
 
 $handle = fopen( $targetName, 'r' );
 

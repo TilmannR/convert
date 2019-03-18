@@ -20,14 +20,19 @@ export i=$1
 
 export overwriteJK=YES
 #export botJK=YES
+T35245tspan=YES
+EinzeilTags=YES
 
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:$PATH
 
 #for debugging
 #echo "some data for the file $1 $2" >> debuginfo.txt
 
+if [ $EinzeilTags = 'YES' ]; then
  sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
  sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
+ sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern) /\r\n<\1 /g' $i
+fi
 
 #remove empty flow Text in svg (everything else will be done by https://github.com/JoKalliauer/cleanupSVG/blob/master/Flow2TextByInkscape.sh )
 #    <flowRoot id="flowRoot3750" style="fill:black;font-family:Linux Libertine;font-size:64;line-height:100%;text-align:center;text-anchor:middle;writing-mode:lr" xml:space="preserve"/>
@@ -75,8 +80,6 @@ sed -ri "s/<svg([-[:alnum:]=\" ]*) viewBox=\"0,0,([[:digit:]\.]*),([[:digit:]\.]
 #librsvgbug https://phabricator.wikimedia.org/phab:T207506 (<code>font-weight="normal"</code> ignored)
 sed -ri "s/font-weight=\"normal\"/font-weight=\"400\"/g" $i
 
-T35245tspan=YES
-
 #echo i,$i
 
 cp $i /data/project/svgworkaroundbot/bot.svg
@@ -93,6 +96,7 @@ wait
 
 #echo i,$i
 
+echo "mv -f /data/project/svgworkaroundbot/bot.svg $i"
 mv -f /data/project/svgworkaroundbot/bot.svg $i
 #mv /cygdrive/c/Users/jkalliau/Documents/GitHub/bot.svg $i
 
@@ -103,4 +107,5 @@ mv -f /data/project/svgworkaroundbot/bot.svg $i
 #for debugging
 #cp $i tmp.svg
 
+echo "mv $i $2"
 mv $i $2

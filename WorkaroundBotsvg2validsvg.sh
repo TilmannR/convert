@@ -5,7 +5,7 @@
 
 
 rm *.xml
-rm *.svg
+#rm *.svg
 
 #wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
 

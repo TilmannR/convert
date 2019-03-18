@@ -10,8 +10,6 @@ rm *.svg
 #wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
 
 
-
-
 echo i
 echo $i
 echo 1

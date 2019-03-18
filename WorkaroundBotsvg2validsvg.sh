@@ -28,6 +28,8 @@ export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:$
 #for debugging
 #echo "some data for the file $1 $2" >> debuginfo.txt
 
+ sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
+ sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
 
 #remove empty flow Text in svg (everything else will be done by https://github.com/JoKalliauer/cleanupSVG/blob/master/Flow2TextByInkscape.sh )
 #    <flowRoot id="flowRoot3750" style="fill:black;font-family:Linux Libertine;font-size:64;line-height:100%;text-align:center;text-anchor:middle;writing-mode:lr" xml:space="preserve"/>

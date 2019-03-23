@@ -22,7 +22,7 @@ export overwriteJK=YES
 #export botJK=YES
 T35245tspan=YES
 EinzeilTags=YES
-SVGCleaner=YES
+SVGCleaner=NO
 
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:$PATH
 

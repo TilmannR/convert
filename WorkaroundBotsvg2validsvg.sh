@@ -22,16 +22,21 @@ export overwriteJK=YES
 #export botJK=YES
 T35245tspan=YES
 EinzeilTags=YES
+SVGCleaner=YES
 
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:$PATH
 
 #for debugging
 #echo "some data for the file $1 $2" >> debuginfo.txt
-
-if [ $EinzeilTags = 'YES' ]; then
- sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
- sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
- sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern) /\r\n<\1 /g' $i
+if [ $SVGCleaner = 'YES' ]; then
+ svgcleaner $i $2 --allow-bigger-file --indent $INDENT --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments no --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements no --remove-metadata no --remove-needless-attributes yes --remove-nonsvg-attributes no --remove-nonsvg-elements no --remove-text-attributes no --remove-title no --remove-unreferenced-ids no --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-version yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids no --trim-paths yes --ungroup-defs yes --ungroup-groups no --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 7 --copy-on-error
+ cp -o $2 $i
+else 
+ if [ $EinzeilTags = 'YES' ]; then
+  sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
+  sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
+  sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern) /\r\n<\1 /g' $i
+ fi
 fi
 
 #remove empty flow Text in svg (everything else will be done by https://github.com/JoKalliauer/cleanupSVG/blob/master/Flow2TextByInkscape.sh )
@@ -118,4 +123,4 @@ wait
 #cp $i tmp.svg
 
 echo "echo before mv $i $2"
-mv $i $2
+cp -o $i $2

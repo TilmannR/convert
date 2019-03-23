@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm master.zip
-rm master.zip.1
+rm -f master.zip.1
 rm -r public_html/
 
 wget -q https://github.com/JoKalliauer/convert/archive/master.zip

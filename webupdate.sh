@@ -1,9 +1,10 @@
 #!/bin/bash
 
 rm master.zip
+rm master.zip.1
 rm -r public_html/
 
-wget https://github.com/JoKalliauer/convert/archive/master.zip > wgetmaster.log
+wget -q https://github.com/JoKalliauer/convert/archive/master.zip
 
 unzip -oz master.zip
 

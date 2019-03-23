@@ -3,9 +3,9 @@
 rm master.zip
 rm -r public_html/
 
-wget https://github.com/JoKalliauer/convert/archive/master.zip
+wget https://github.com/JoKalliauer/convert/archive/master.zip > wgetmaster.log
 
-unzip -o master.zip
+unzip -oz master.zip
 
 cp -T ./convert-master ./public_html
 

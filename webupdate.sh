@@ -7,7 +7,7 @@ wget https://github.com/JoKalliauer/convert/archive/master.zip
 
 unzip -o master.zip
 
-mv -T ./convert-master ./public_html
+cp -T ./convert-master ./public_html
 
 chmod a+x public_html/WorkaroundBotsvg2validsvg.sh
 

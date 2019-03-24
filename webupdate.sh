@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#rm access.log error.log
 rm master.zip
 rm -f master.zip.1
 rm -r public_html/
@@ -9,9 +10,11 @@ wget -q https://github.com/JoKalliauer/convert/archive/master.zip -O master.zip
 
 unzip -oq master.zip
 
-mkdir ./public_html/
+#mkdir ./public_html/
 
-mv -f ./convert-master/* ./public_html
+#mv -f ./convert-master/* ./public_html
+
+mv ./convert-master/ ./public_html
 
 chmod a+x public_html/WorkaroundBotsvg2validsvg.sh
 

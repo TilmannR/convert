@@ -27,7 +27,7 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   die();
 }
 
-exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) '> FileError.log');
+exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
 unlink( $fileName );
 
 $file = 'tmp.svg';

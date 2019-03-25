@@ -9,11 +9,6 @@ if ( !array_key_exists( 'file', $_FILES ) ) {
 }
 $uploadName = $_FILES['file']['tmp_name'];
 $fileName = $uploadName . '.svg';
-$antiAliasingDisabled = isset( $_POST['svgcleaner'] );
-$svgcleaner = 'NO';
-if ( $antiAliasingDisabled ) {
-	$svgcleaner = 'YES';
-}
 $targetName = $fileName . '.svg';
 if ( $_FILES['file']['size'] > 5*0x100000 ) {
   unlink( $uploadName );

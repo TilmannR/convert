@@ -4,7 +4,7 @@
 #created: 2019-02-20
 
 
-rm *.xml
+#rm *.xml
 #rm *.svg
 
 #wget https://commons.wikimedia.org/wiki/Special:FilePath/$1

@@ -26,7 +26,7 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   echo( 'cant move uploaded file' );
   die();
 }
-exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) ' ' $svgcleaner );
+exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
 unlink( $fileName );
 $file = 'tmp.svg';
 // Öffnet die Datei, um den vorhandenen Inhalt zu laden

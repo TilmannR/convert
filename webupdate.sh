@@ -19,7 +19,7 @@ cp ./convert-master/* ./public_html
 #mv ./convert-master/ ./public_html
 
 
-chmod a+x public_html/WorkaroundBotsvg2validsvg.sh ./webupdate.sh ./svg2base.sh
+chmod a+x public_html/WorkaroundBotsvg2validsvg.sh public_html/webupdate.sh public_html/svg2base.sh
 
 cp public_html/webupdate.sh ./webupdate.sh
 

@@ -55,9 +55,9 @@ echo $i
 		#base64.exe --decode ${file}.base64 > ${file}.png
 		
 		#if [ "$outputType" = "png" ];then #png
-		 base64.exe --decode ${file}.png_base64 > ${file}.png
+		 base64 --decode ${file}.png_base64 > ${file}.png
 		#elif [ "$outputType" = "jpeg" ] || [ "$outputType" = "jpg" ];then
-		 base64.exe --decode ${file}.jpeg_base64 > ${file}.jpeg
+		 base64 --decode ${file}.jpeg_base64 > ${file}.jpeg
 		#fi
         jpegfilesize=$(wc -c ./${file}.jpeg|awk '{print $1}')
         pngfilesize=$(wc -c ./${file}.png|awk '{print $1}')

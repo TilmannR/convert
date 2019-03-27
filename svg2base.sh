@@ -45,7 +45,7 @@ echo $i
         echo $count". "$i" -> "${file}.base64
 		sed -ri "s/iVBORw0KGgoAAAANSUhEUgAA/ \n iVBORw0KGgoAAAANSUhEUgAA/g" $i
 		sed -ri "s/\/9j\/4AAQSkZJRgABAg(.)A(....)AAD\/7AARRHVja3kAAQAEAAAAHgAA/ \n \/9j\/4AAQSkZJRgABAg\1A\2AAD\/7AARRHVja3kAAQAEAAAAHgAA/g" $i
-		sed -ri "s/=\"(\/>| )/=\n\"\1/g" $i
+		sed -ri "s/=[ ]*\"(\/>| )/=\n\"\1/g" $i
 		
 		grep "iVBORw0KGgoAAAANSUhEUgAA" $i > $file.png_base64
 		grep "\/9j\/4AAQSkZJRgABAg.A....AAD\/7AARRHVja3kAAQAEAAAAHgAA"  $i > $file.jpeg_base64
@@ -64,9 +64,13 @@ echo $i
 
         if [ "$jpegfilesize" = "0" ];then
          rm ${file}.jpeg
+		else
+		 cp ${file}.jpeg $2
         fi
         if [ "$pngfilesize" = "0" ];then
          rm ${file}.png
+		else
+		 cp ${file}.png $2
         fi
 		
 

@@ -22,9 +22,9 @@ echo
 #for fileSource in *.svg
 #do
 
-i=$fileSource
+fileSource=$1
 
- export i=$fileSource #i will be overritan later
+ export i=$fileSource #i will be overwritten later
  export fileN=$(echo $fileSource | cut -f1 -d" ") #remove spaces if exsiting (and everything after)
  export tmp=${fileN%.base64}
 
@@ -38,7 +38,7 @@ i=$fileSource
  fi
  
  #mv ./"${fileSource}.$sourceType" "./${fileSource}2.xml"
-
+echo $i
    if [ -f "$i" ]; then    
         count=$((count+1))
         file=${i%.base64}
@@ -59,15 +59,15 @@ i=$fileSource
 		#elif [ "$outputType" = "jpeg" ] || [ "$outputType" = "jpg" ];then
 		 base64.exe --decode ${file}.jpeg_base64 > ${file}.jpeg
 		#fi
-jpegfilesize=$(wc -c ./${file}.jpeg|awk '{print $1}')
-pngfilesize=$(wc -c ./${file}.png|awk '{print $1}')
+        jpegfilesize=$(wc -c ./${file}.jpeg|awk '{print $1}')
+        pngfilesize=$(wc -c ./${file}.png|awk '{print $1}')
 
-if [ "$jpegfilesize" = "0" ];then
- rm ${file}.jpeg
-fi
-if [ "$pngfilesize" = "0" ];then
- rm ${file}.png
-fi
+        if [ "$jpegfilesize" = "0" ];then
+         rm ${file}.jpeg
+        fi
+        if [ "$pngfilesize" = "0" ];then
+         rm ${file}.png
+        fi
 		
 
     else
@@ -78,7 +78,7 @@ fi
 	 mv ./${i} ./${file}bak2.xml
 	fi
 	
-done
+#done
 
 
 

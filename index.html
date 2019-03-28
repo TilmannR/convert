@@ -7,7 +7,7 @@
 </head>
 
 <body style="font-family:Arial,Helvetica,sans-serif;">
-
+<!--
 <h1>Convert PDF to SVG (<a href="https://tools.wmflabs.org/convert/">Rilkes convert tool</a>)</h1>
 <form action="pdf2svg.php" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
@@ -23,7 +23,7 @@
 <br />
 <input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> disable <a href="//wikipedia.org/wiki/anti-aliasing">anti-aliasing</a> (experimental)</label>
 </form>
-
+-->
 <h1>Repair SVGs and make Workarounds for librsvg</h1>
 <form action="svg2svg.php" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
@@ -54,7 +54,7 @@
 <input type="file" name="file" id="file" accept="image/svg+xml" />
 <input type="submit" name="submit" value="Extract PNG" />
 </form>
-
+<!--
 <h1>Test Output=Input</h1>
 <form action="keep.php" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
@@ -63,11 +63,8 @@
 </form>
 
 <h1>This tool can only convert svgs till 63kB. (Don't ask me why! Help needed!)</h1>
-Exact limit seems to be 65 143 Bytes (including filename)
-<br/><br/>
-Contact:
-<br/><a href="https://commons.wikimedia.org/wiki/User_talk:SVGWorkaroundBot">https://commons.wikimedia.org/wiki/User_talk:SVGWorkaroundBot</a>
-<br/><a href="https://github.com/JoKalliauer/convert">https://github.com/JoKalliauer/convert</a>
+Exact limit seems to be 65 143 Bytes (including filename)-->
+
 
 
 <!--<h1>Currently the tool is under development 25.03.2019, and maybe does not work. The maintainer try to solve it.</h1>-->
@@ -82,5 +79,9 @@ Contact:
     The source-code is available <a href="https://github.com/JoKalliauer/cleanupSVG">On GitHub</a>
     <br/>
     This website is based on <a href="https://tools.wmflabs.org/convert/">https://tools.wmflabs.org/convert/</a> by <a href="//commons.wikimedia.org/wiki/User:Rillke">Rillke</a> and others, source: <a href="https://github.com/Rillke/convert">GitHub</a>.</div>
+	<br/><br/>
+Contact:
+<br/><a href="https://commons.wikimedia.org/wiki/User_talk:SVGWorkaroundBot">https://commons.wikimedia.org/wiki/User_talk:SVGWorkaroundBot</a>
+<br/><a href="https://github.com/JoKalliauer/convert">https://github.com/JoKalliauer/convert</a>
 </body>
 </html>

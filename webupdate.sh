@@ -13,7 +13,7 @@ wget -q https://github.com/JoKalliauer/convert/archive/master.zip -O master.zip
 unzip -oq master.zip
 
 #mkdir ./public_html/
-cp ./convert-master/* ./public_html
+cp -r ./convert-master/* ./public_html
 #mv -f ./convert-master/* ./public_html
 
 #mv ./convert-master/ ./public_html

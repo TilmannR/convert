@@ -1,8 +1,5 @@
 <?php
 
-// Add header to support streaming on NGINX + php-fpm (nginx >= 1.5.6).
-$this->headers->set('X-Accel-Buffering', 'no');
-
 
 header('Content-type: text/html; charset=utf-8');
 header('Surrogate-Control: BigPipe/1.0');

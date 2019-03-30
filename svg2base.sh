@@ -34,10 +34,10 @@ fileSource=$1
   echo no renaming
  else
   echo move
-  mv ./"${fileSource}" $i
+  mv "${fileSource}" $i
  fi
  
- #mv ./"${fileSource}.$sourceType" "./${fileSource}2.xml"
+ #mv "${fileSource}.$sourceType" "${fileSource}2.xml"
 echo $i
    if [ -f "$i" ]; then    
         count=$((count+1))
@@ -61,8 +61,8 @@ echo $i
 		#elif [ "$outputType" = "jpeg" ] || [ "$outputType" = "jpg" ];then
 		 base64 --decode ${file}.jpeg_base64 > ${file}.jpeg
 		#fi
-        jpegfilesize=$(wc -c ./${file}.jpeg|awk '{print $1}')
-        pngfilesize=$(wc -c ./${file}.png|awk '{print $1}')
+        jpegfilesize=$(wc -c ${file}.jpeg|awk '{print $1}')
+        pngfilesize=$(wc -c ${file}.png|awk '{print $1}')
 
         if [ "$jpegfilesize" = "0" ];then
          rm ${file}.jpeg
@@ -81,7 +81,7 @@ echo $i
     fi
 	
 	if [ "$outputType" = "svg" ] || [ "$outputType" = "plain-svg" ] || [ "$outputType" = "ink-svg" ]; then
-	 mv ./${i} ./${file}bak2.xml
+	 mv ${i} ${file}bak2.xml
 	fi
 	
 #done

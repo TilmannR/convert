@@ -7,7 +7,7 @@
 </head>
 
 <body style="font-family:Arial,Helvetica,sans-serif;">
-
+<!--
 <h1>Convert PDF to SVG (<a href="https://tools.wmflabs.org/convert/">Rilkes convert tool</a>)</h1>
 <form action="pdf2svg.php" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
@@ -23,7 +23,7 @@
 <br />
 <input type="checkbox" name="no-antialiasing" value="1" id="no-antialiasing" /><label for="no-antialiasing"> disable <a href="//wikipedia.org/wiki/anti-aliasing">anti-aliasing</a> (experimental)</label>
 </form>
-
+-->
 <h1>Repair SVGs and make Workarounds for librsvg</h1>
 <form action="svg2svg.php" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
@@ -61,10 +61,10 @@
 <input type="file" name="file" id="file" accept="image/svg+xml" />
 <input type="submit" name="submit" value="Copy" />
 </form>
-
+<!--
 <h1>This tool can only convert svgs till 63kB. (Don't ask me why! Help needed!)</h1>
 Exact limit seems to be 65 143 Bytes (including filename)
-
+-->
 
 
 <!--<h1>Currently the tool is under development 25.03.2019, and maybe does not work. The maintainer try to solve it.</h1>-->

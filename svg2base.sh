@@ -6,7 +6,7 @@
 #Download date: 2017-10-29
 
 #last Changes: (by Johannes Kalliauer)
-#2017-10-29 11h06 defined inkscape alias (Johannes Kalliauer)
+#2017-10-29 11h06 defined Inkscape alias (Johannes Kalliauer)
 
 echo
 

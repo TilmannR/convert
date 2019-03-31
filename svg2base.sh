@@ -72,7 +72,7 @@ echo $i
         if [ "$pngfilesize" = "0" ];then
          rm ${file}.png
 		else
-		 optipng ${file}.png
+		 /data/project/svgworkaroundbot/prgm2/OptiPNG/optipng-0.7.7/src/optipng/optipng ${file}.png
 		 cp ${file}.png $2
         fi
 		

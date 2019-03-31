@@ -72,6 +72,7 @@ echo $i
         if [ "$pngfilesize" = "0" ];then
          rm ${file}.png
 		else
+		 optipng ${file}.png
 		 cp ${file}.png $2
         fi
 		

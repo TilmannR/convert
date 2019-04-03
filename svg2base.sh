@@ -22,6 +22,9 @@ echo
 #for fileSource in *.svg
 #do
 
+source ~/.bash_profile
+
+
 fileSource=$1
 
  export i=$fileSource #i will be overwritten later

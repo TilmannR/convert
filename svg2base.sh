@@ -26,7 +26,7 @@ echo ~/.bash_profile
 
 less ~/.bash_profile
 
-source ~/.bash_profile
+source /data/project/svgworkaroundbot/.bash_profile
 
 export PATH=/data/project/svgworkaroundbot/prgm2/OptiPNG/optipng-0.7.7/src/optipng:$PATH
 

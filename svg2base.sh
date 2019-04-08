@@ -22,7 +22,9 @@ echo
 #for fileSource in *.svg
 #do
 
-echo ~
+echo ~/.bash_profile
+
+less ~/.bash_profile
 
 source ~/.bash_profile
 

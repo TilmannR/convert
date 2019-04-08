@@ -28,6 +28,7 @@ more ~/.bash_profile
 
 source /data/project/svgworkaroundbot/.bash_profile
 source test
+dlkjaöfj test
 
 source ~/.bash_profile
 

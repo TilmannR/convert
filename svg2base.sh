@@ -22,6 +22,8 @@ echo
 #for fileSource in *.svg
 #do
 
+echo ~
+
 source ~/.bash_profile
 
 export PATH=/data/project/svgworkaroundbot/prgm2/OptiPNG/optipng-0.7.7/src/optipng:$PATH

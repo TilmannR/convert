@@ -3,11 +3,17 @@
 #Author: Johannes Kalliauer (JoKalliauer)
 #created: 2019-02-20
 
+# $1 ... input (f.e. Buggy.svg)
+# $2 ... output (f.e. Repaired.svg)
+# $3 ... SVGCleaner (YES or NO)
+
 
 #rm *.xml
 #rm *.svg
 
 #wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
+
+
 
 
 echo i
@@ -16,13 +22,17 @@ echo 1
 echo $1
 export i=$1
 
-
+~/.bash_profile
 
 export overwriteJK=YES
 #export botJK=YES
 T35245tspan=YES
 EinzeilTags=YES
-SVGCleaner=YES
+SVGCleaner=$3
+
+if [ $SVGCleaner = '' ]; then
+ SVGCleaner=YES
+fi
 
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:$PATH
 

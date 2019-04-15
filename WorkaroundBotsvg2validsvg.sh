@@ -58,6 +58,7 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https:/
 if [ $RunInkscape = 'YES' ]; then
  echo ink start
  inkscape $i --vacuum-defs
+ echo ink between
  inkscape $i -g --verb=EditSelectAll --verb=ObjectFlowtextToText --verb=FileSave --verb=FileClose  --verb=FileQuit
  EinzeilTags=YES
  echo end ink

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #Author: Johannes Deml, Johannes Kalliauer
 #Source: http://www.inkscapeforum.com/viewtopic.php?t=16743
@@ -18,15 +18,13 @@ echo
 #outputType="svg"
 #outputType="png"
 
-
-#for fileSource in *.svg
-#do
-
 ~/.bash_profile
 
 export PATH=/data/project/svgworkaroundbot/prgm2/OptiPNG/optipng-0.7.7/src/optipng:$PATH
 
 
+#for fileSource in *.svg
+#do
 
 fileSource=$1
 
@@ -34,7 +32,7 @@ fileSource=$1
  export fileN=$(echo $fileSource | cut -f1 -d" ") #remove spaces if exsiting (and everything after)
  export tmp=${fileN%.base64}
 
- #If you want to overwrite the exisiting file, without any backup, delete the following three lines
+ #If you want to overwrite the existing file, without any backup, delete the following three lines
  export i=${tmp}
  if [ -f "$i" ]; then
   echo no renaming
@@ -44,52 +42,76 @@ fileSource=$1
  fi
  
  #mv "${fileSource}.$sourceType" "${fileSource}2.xml"
-echo $i
-   if [ -f "$i" ]; then    
-        count=$((count+1))
-        file=${i%.base64}
-        echo $count". "$i" -> "${file}.base64
-		sed -ri "s/iVBORw0KGgoAAAANSUhEUgAA/ \n iVBORw0KGgoAAAANSUhEUgAA/g" $i
-		sed -ri "s/\/9j\/4AAQSkZJRgABAg(.)A(....)AAD\/7AARRHVja3kAAQAEAAAAHgAA/ \n \/9j\/4AAQSkZJRgABAg\1A\2AAD\/7AARRHVja3kAAQAEAAAAHgAA/g" $i
-		sed -ri "s/=[ ]*\"(\/>| )/=\n\"\1/g" $i
-		sed -ri "s/\r/ /" $i
-		sed -ri "s/\n/ /" $i
-		
-		grep "iVBORw0KGgoAAAANSUhEUgAA" $i > $file.png_base64
-		grep "\/9j\/4AAQSkZJRgABAg.A....AAD\/7AARRHVja3kAAQAEAAAAHgAA"  $i > $file.jpeg_base64
-		sed -i "s/ /\n/g" $file.png_base64
-		sed -i "s/ /\n/g" $file.jpeg_base64
-		
-		#base64.exe --decode ${file}.base64 > ${file}.png
-		
-		#if [ "$outputType" = "png" ];then #png
-		 base64 --decode ${file}.png_base64 > ${file}.png
-		#elif [ "$outputType" = "jpeg" ] || [ "$outputType" = "jpg" ];then
-		 base64 --decode ${file}.jpeg_base64 > ${file}.jpeg
-		#fi
-        jpegfilesize=$(wc -c ${file}.jpeg|awk '{print $1}')
-        pngfilesize=$(wc -c ${file}.png|awk '{print $1}')
-
-        if [ "$jpegfilesize" = "0" ];then
-         rm ${file}.jpeg
-		else
-		 cp ${file}.jpeg $2
-        fi
-        if [ "$pngfilesize" = "0" ];then
-         rm ${file}.png
-		else
-		 optipng ${file}.png
-		 cp ${file}.png $2
-        fi
-		
-
-    else
-        echo "no file $i found!"
+ echo $i
+ if [ -f "$i" ]; then    
+  count=$((count+1))
+  file=${i%.base64}
+  echo $count". "$i" -> "${file}.base64
+  sed -ri "s/iVBORw0KGgoAAAANSUhEUgAA/ \n iVBORw0KGgoAAAANSUhEUgAA/g" $i
+  sed -ri "s/\/9j\/4AAQSkZJRgABAg(.)A(....)AAD\/7AARRHVja3kAAQAEAAAAHgAA/ \n \/9j\/4AAQSkZJRgABAg\1A\2AAD\/7AARRHVja3kAAQAEAAAAHgAA/g" $i
+  sed -ri "s/(AAAAAElFTkSuQmCC|=)[ ]*\"(\/>| )/\1\n\"\2/g" $i
+  sed -ri "s/\r/ /" $i
+  sed -ri "s/\n/ /" $i
+  
+  grep "iVBORw0KGgoAAAANSUhEUgAA" $i > $file.png_base64
+  grep "\/9j\/4AAQSkZJRgABAg.A....AAD\/7AARRHVja3kAAQAEAAAAHgAA"  $i > $file.jpeg_base64
+  
+  linenumbers=$(wc -l $file.png_base64|awk '{print $1}')
+  if [ "$linenumbers" -gt 0 ]; then
+   if [ "$linenumbers" = 1 ]; then 
+    sed -i "s/ /\n/g" $file.png_base64
+    base64 --decode ${file}.png_base64 > ${file}.png
+    pngfilesize=$(wc -c ${file}.png|awk '{print $1}')
+    if [ "$pngfilesize" = "0" ];then
+     rm ${file}.png
     fi
-	
-	if [ "$outputType" = "svg" ] || [ "$outputType" = "plain-svg" ] || [ "$outputType" = "ink-svg" ]; then
-	 mv ${i} ${file}bak2.xml
-	fi
+   else # [ "$linenumbers" = 1 ]
+    for ((ln=1;ln<=$linenumbers;ln++))
+	do
+	 	echo $ln
+     sed -n "${ln}p" $file.png_base64 > $file.png${ln}_base64
+     sed -i "s/ /\n/g" $file.png${ln}_base64
+     base64 --decode ${file}.png${ln}_base64 > ${file}_File${ln}.png
+	done
+    #sed -n '2p' $file.png_base64 > $file.png2_base64
+    #sed -i "s/ /\n/g" $file.png2_base64
+    #base64 --decode ${file}.png2_base64 > ${file}_File2.png
+   fi #[ "$linenumbers" = 1 ]
+  fi # [ "$linenumbers" -gt 0 ]
+   
+   sed -i "s/ /\n/g" $file.png_base64
+   sed -i "s/ /\n/g" $file.jpeg_base64
+   
+   #base64.exe --decode ${file}.base64 > ${file}.png
+   
+   #if [ "$outputType" = "png" ];then #png
+    base64 --decode ${file}.png_base64 > ${file}.png
+   #elif [ "$outputType" = "jpeg" ] || [ "$outputType" = "jpg" ];then
+    base64 --decode ${file}.jpeg_base64 > ${file}.jpeg
+   #fi
+   jpegfilesize=$(wc -c ${file}.jpeg|awk '{print $1}')
+   pngfilesize=$(wc -c ${file}.png|awk '{print $1}')
+   
+   if [ "$jpegfilesize" = "0" ];then
+    rm ${file}.jpeg
+   else
+    cp ${file}.jpeg $2
+   fi
+   if [ "$pngfilesize" = "0" ];then
+    rm ${file}.png
+   else
+    optipng ${file}.png
+    cp ${file}.png $2
+   fi
+   
+   
+  else
+      echo "no file $i found!"
+  fi
+  
+ if [ "$outputType" = "svg" ] || [ "$outputType" = "plain-svg" ] || [ "$outputType" = "ink-svg" ]; then
+  mv ${i} ${file}bak2.xml
+ fi
 	
 #done
 

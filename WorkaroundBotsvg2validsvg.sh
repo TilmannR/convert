@@ -11,24 +11,23 @@
 #rm *.xml
 #rm *.svg
 
-#wget https://commons.wikimedia.org/wiki/Special:FilePath/$1
 
 
-
-
-echo i
-echo $i
-echo 1
-echo $1
+#echo i
+#echo $i
+#echo 1
+#echo $1
 export i=$1
 
 ~/.bash_profile
 
-export overwriteJK=YES
+#export overwriteJK=YES
 #export botJK=YES
 T35245tspan=YES
 EinzeilTags=YES
 SVGCleaner=$3
+
+# wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
 
 if [ $SVGCleaner = '' ]; then
  SVGCleaner=YES

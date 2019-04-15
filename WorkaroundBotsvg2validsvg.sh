@@ -54,7 +54,7 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" ./${file}f.s
 
 #Pre-Inkscape End
 if [ $RunInkscape = 'YES' ]; then
- inkscape $i --verb=EditSelectAll --verb=ObjectFlowtextToText --verb=FileSave --verb=FileClose
+ inkscape $i --vacuum-defs --verb=EditSelectAll --verb=ObjectFlowtextToText --verb=FileSave --verb=FileClose
 fi
 
    

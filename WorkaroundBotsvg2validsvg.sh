@@ -31,10 +31,10 @@ SVGCleaner=$3
 RunInkscape=$4
 rmFlowRoot=$5
 
-if [ $SVGCleaner = '' ]; then
+if [ -z ${SVGCleaner+x} ]; then
  SVGCleaner=YES
 fi
-if [ $RunInkscape = '' ]; then
+if [ -z ${RunInkscape+x} ]; then
  RunInkscape=NO
 fi
 

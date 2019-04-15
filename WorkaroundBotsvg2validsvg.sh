@@ -7,6 +7,7 @@
 # $2 ... output (f.e. Repaired.svg)
 # $3 ... SVGCleaner (YES or NO)
 # $4 ... Inkscape (YES or NO)
+# $5 ... rmFlowRoot (YES or NO)
 
 
 #rm *.xml
@@ -28,14 +29,15 @@ T35245tspan=YES
 EinzeilTags=YES
 SVGCleaner=$3
 RunInkscape=$4
-
-if [ $RunInkscape = '' ]; then
- RunInkscape=No
-fi
+rmFlowRoot=$5
 
 if [ $SVGCleaner = '' ]; then
  SVGCleaner=YES
 fi
+if [ $RunInkscape = '' ]; then
+ RunInkscape=NO
+fi
+
 
 # wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
 
@@ -56,11 +58,23 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https:/
 if [ $RunInkscape = 'YES' ]; then
  echo ink start
  inkscape $i --vacuum-defs
- inkscape $i --verb=EditSelectAll --verb=ObjectFlowtextToText --verb=FileSave --verb=FileClose  --verb=FileQuit
+ inkscape $i -g --verb=EditSelectAll --verb=ObjectFlowtextToText --verb=FileSave --verb=FileClose  --verb=FileQuit
+ EinzeilTags=YES
  echo end ink
 else 
  echo no ink
 fi
+
+
+ if [ $EinzeilTags = 'YES' ]; then
+  sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
+  sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
+  sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern|text|metadata) /\r\n<\1 /g' $i
+ fi
+
+ #copied from FFlow2TextBySed.sh
+ sed -ri "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\';]*)>[[:space:]]*<flowRegion([-[:alnum:]=:\" #;\.%]*)>[[:space:]]*<rect([-[:lower:][:digit:]\"= \.:;]*) x=\"([-[:digit:]\. ]+)\" y=\"([-[:digit:]\. ]+)\"([-[:lower:][:digit:]=\.\" \#:;]*)\/>[[:space:]]*<\/flowRegion>[[:space:]]*<flowPara([-[:alnum:]\.=\" \:\#;\%]*)>([-−[:alnum:] \{\}\(\)\+\ \ \.\?\']+)<\/flowPara>[[:space:]]*<\/flowRoot>/<text x=\"\4\" y=\"\5\"\1><tspan x=\"\4\" y=\"\5\"\7>\8<\/tspan><\/text>/g" $i
+
 
    
 #for debugging
@@ -68,12 +82,6 @@ fi
 if [ $SVGCleaner = 'YES' ]; then
  /data/project/svgworkaroundbot/prgm/svgcleaner/svgcleaner $i $2 --allow-bigger-file --indent 1 --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments no --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements no --remove-metadata no --remove-needless-attributes yes --remove-nonsvg-attributes no --remove-nonsvg-elements no --remove-text-attributes no --remove-title no --remove-unreferenced-ids no --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-version yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids no --trim-paths yes --ungroup-defs yes --ungroup-groups no --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 7 --copy-on-error
  cp -f $2 $i
-else 
- if [ $EinzeilTags = 'YES' ]; then
-  sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
-  sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
-  sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern|text|metadata) /\r\n<\1 /g' $i
- fi
 fi
 
 #remove useless metadata

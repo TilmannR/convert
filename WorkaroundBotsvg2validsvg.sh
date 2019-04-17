@@ -69,7 +69,7 @@ fi
 
  if [ $EinzeilTags = 'YES' ]; then
   sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
-  sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
+  sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]\r\n]*/ /g" $i #reduce to one space
   sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern|text|metadata) /\r\n<\1 /g' $i
  fi
 

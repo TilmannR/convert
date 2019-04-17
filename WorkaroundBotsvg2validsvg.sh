@@ -6,8 +6,6 @@
 # $1 ... input (f.e. Buggy.svg)
 # $2 ... output (f.e. Repaired.svg)
 # $3 ... SVGCleaner (YES or NO)
-# $4 ... Inkscape (YES or NO)
-# $5 ... rmFlowRoot (YES or NO)
 
 
 #rm *.xml
@@ -28,8 +26,6 @@ export i=$1
 T35245tspan=YES
 EinzeilTags=YES
 SVGCleaner=$3
-RunInkscape=$4
-rmFlowRoot=$5
 
 if [ -z ${SVGCleaner+x} ]; then
  SVGCleaner=YES
@@ -70,7 +66,7 @@ fi
  if [ $EinzeilTags = 'YES' ]; then
   sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
   sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
-  sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/[[:space:]\r\n]+/ /g" $i #reduce to one space
+  #sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/[[:space:]\r\n]+/ /g" $i #no need for that
   sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern|text|metadata) /\r\n<\1 /g' $i
  fi
 

@@ -15,10 +15,20 @@ $drei='NO';
 if ( $svgcleanerEnabled ) {
 	$drei = 'YES';
 }
-$inkscapeEnabled = isset( $_POST['RunInkscape'] );
+$scourEnabled = isset( $_POST['scour'] );
 $vier='NO';
-if ( $RunInkscape ) {
+if ( $scourEnabled ) {
 	$vier = 'YES';
+}
+$validEnabled = isset( $_POST['valid'] );
+$funf='NO';
+if ( $validEnabled ) {
+	$funf = 'YES';
+}
+$inkscapeEnabled = isset( $_POST['RunInkscape'] );
+$sechs='NO';
+if ( $RunInkscape ) {
+	$sechs = 'YES';
 }
 
 $targetName = $fileName . '.svg';
@@ -33,7 +43,7 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   echo( 'cant move uploaded file' );
   die();
 }
-exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) . ' ' . $drei . ' ' . $vier );
+exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) . ' ' . $drei . ' ' . $vier . ' ' . $funf );
 unlink( $fileName );
 $file = 'tmp.svg';
 // Öffnet die Datei, um den vorhandenen Inhalt zu laden

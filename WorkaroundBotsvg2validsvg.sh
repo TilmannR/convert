@@ -6,6 +6,8 @@
 # $1 ... input (f.e. Buggy.svg)
 # $2 ... output (f.e. Repaired.svg)
 # $3 ... SVGCleaner (YES or NO)
+# $4 ... scour (YES or NO)
+# $5 ... valid (YES or NO)
 
 #rm -f $1
 
@@ -18,9 +20,17 @@ export i=$1
 T35245tspan=YES
 EinzeilTags=YES
 SVGCleaner=$3
+ScourScour=$4
+validValid=$5
 
 if [ -z ${SVGCleaner+x} ]; then
  SVGCleaner=YES
+fi
+if [ -z ${ScourScour+x} ]; then
+ ScourScour=NO
+fi
+if [ -z ${ScourScour+x} ]; then
+ validValid=NO
 fi
 
 # wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
@@ -29,6 +39,19 @@ if [ $SVGCleaner = '' ]; then
  SVGCleaner=YES
 fi
 
+if [ $HOSTNAME = LAPTOP-K1FUMMIP ]; then
+ rm -f $1
+ wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
+ export ScourJK=scour
+else
+ if [ $HOSTNAME = tools-sgebastion-07 ]; then
+  rm -f $1
+  wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i 
+  export ScourJK="python3 -m scour.scour"
+ else
+  echo did not recognice HOSTNAME $HOSTNAME
+ fi
+fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
 
   sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
@@ -49,10 +72,23 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https:/
  sed -ri "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\';]*)>[[:space:]]*<flowRegion([-[:alnum:]=:\" #;\.%\',]*)>[[:space:]]*<rect([-[:lower:][:digit:]\"= \.:;]*) x=\"([-[:digit:]\. ]+)\" y=\"([-[:digit:]\. ]+)\"([-[:alnum:]=\.\" \#:;\',]*)\/>[[:space:]]*<\/flowRegion>[[:space:]]*<flowPara([-[:alnum:]\.=\" \:\#;\%]*)>([-−[:alnum:] \{\}\(\)\+\ \ \.\?\']+)<\/flowPara>[[:space:]]*<\/flowRoot>/<text x=\"\4\" y=\"\5\"\1><tspan x=\"\4\" y=\"\5\"\7>\8<\/tspan><\/text>/g" $i
  
 
-
+if [ $ScourScour = 'YES' ]; then
+ export scour
+ echo runScourScour $ScourJK $ScourScour
+ #rm tmp.svg
+ $ScourJK -i $i -o tmp.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --disable-style-to-xml  --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data --error-on-flowtext # --enable-comment-stripping --create-groups  #--enable-viewboxing #
+ rm $i
+ mv tmp.svg $i
+else 
+ echo no ScourScour $ScourScour
+fi
 
 if [ $SVGCleaner = 'YES' ]; then
  svgcleaner $i $2 --allow-bigger-file --indent 1 --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments no --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements no --remove-metadata no --remove-needless-attributes yes --remove-nonsvg-attributes no --remove-nonsvg-elements no --remove-text-attributes no --remove-title no --remove-unreferenced-ids no --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-version yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids no --trim-paths yes --ungroup-defs yes --ungroup-groups no --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 7 --copy-on-error
+ cp -f $2 $i
+fi
+if [ $validValid = 'YES' ]; then
+ svgcleaner $i $2 --allow-bigger-file --indent 1 --remove-nonsvg-attributes yes --remove-nonsvg-elements yes --remove-version yes --remove-text-attributes yes --remove-needless-attributes yes --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments yes --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements yes --remove-metadata no --remove-title yes --remove-unreferenced-ids yes --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids yes --trim-paths yes --ungroup-defs yes --ungroup-groups yes --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 5
  cp -f $2 $i
 fi
 

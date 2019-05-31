@@ -7,26 +7,26 @@ if ( !array_key_exists( 'file', $_FILES ) ) {
   header( "Location: $url" );
   die();
 }
-file_put_contents('foobar', "$(date) phpZeile 10\n", FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 10\n", FILE_APPEND);
 $uploadName = $_FILES['file']['tmp_name'];
 $fileName = $uploadName . '.svg';
 $targetName = $fileName . '.png';
-file_put_contents('foobar', "$(date) phpZeile 13\n", FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 13\n", FILE_APPEND);
 if ( $_FILES['file']['size'] > 6*0x100000 ) {
   unlink( $uploadName );
   header( "Location: $url#tooBig" );
   die();
 }
-file_put_contents('foobar', time(), FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 20\n", FILE_APPEND);
 if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   unlink( $uploadName );
   header( "Location: $url#cantmove" );
   echo( 'cant move uploaded file' );
   die();
 }
-file_put_contents('foobar', "$(date) phpZeile 25\n", FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 25\n", FILE_APPEND);
 exec( './svg2base.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
-file_put_contents('foobar', '$(date) phpZeile 27\n', FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 27\n", FILE_APPEND);
 unlink( $fileName );
 $file = 'tmp.svg';
 // Öffnet die Datei, um den vorhandenen Inhalt zu laden

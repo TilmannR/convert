@@ -47,6 +47,7 @@ fileSource=$1
   count=$((count+1))
   file=${i%.base64}
   echo $count". "$i" -> "${file}.base64
+  echo $(date) Zeile 50
   sed -ri "s/iVBORw0KGgoAAAANSUhEUgAA/ \n iVBORw0KGgoAAAANSUhEUgAA/g" $i
   sed -ri "s/\/9j\/4AAQSkZJRgABAg(.)A(....)AAD\/7AARRHVja3kAAQAEAAAAHgAA/ \n \/9j\/4AAQSkZJRgABAg\1A\2AAD\/7AARRHVja3kAAQAEAAAAHgAA/g" $i
   sed -ri "s/(AAAAAElFTkSuQmCC|=)[ ]*\"(\/>| )/\1\n\"\2/g" $i
@@ -55,7 +56,7 @@ fileSource=$1
   
   grep "iVBORw0KGgoAAAANSUhEUgAA" $i > $file.png_base64
   grep "\/9j\/4AAQSkZJRgABAg.A....AAD\/7AARRHVja3kAAQAEAAAAHgAA"  $i > $file.jpeg_base64
-  
+  echo $(date) Zeile 59
   linenumbers=$(wc -l $file.png_base64|awk '{print $1}')
   if [ "$linenumbers" -gt 0 ]; then
    if [ "$linenumbers" = 1 ]; then 
@@ -78,7 +79,7 @@ fileSource=$1
     #base64 --decode ${file}.png2_base64 > ${file}_File2.png
    fi #[ "$linenumbers" = 1 ]
   fi # [ "$linenumbers" -gt 0 ]
-   
+   echo $(date) Zeile 82
    sed -i "s/ /\n/g" $file.png_base64
    sed -i "s/ /\n/g" $file.jpeg_base64
    
@@ -91,7 +92,7 @@ fileSource=$1
    #fi
    jpegfilesize=$(wc -c ${file}.jpeg|awk '{print $1}')
    pngfilesize=$(wc -c ${file}.png|awk '{print $1}')
-   
+   echo $(date) Zeile 95
    if [ "$jpegfilesize" = "0" ];then
     rm ${file}.jpeg
    else
@@ -103,7 +104,7 @@ fileSource=$1
     #optipng ${file}.png #maybe to slow for large files
     cp ${file}.png $2
    fi
-   
+   echo $(date) Zeile 107
    
   else
       echo "no file $i found!"

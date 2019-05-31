@@ -101,7 +101,7 @@ fileSource=$1
    if [ "$pngfilesize" = "0" ];then
     rm ${file}.png
    else
-    #optipng ${file}.png #maybe to slow for large files
+    optipng ${file}.png #maybe to slow for large files
     cp ${file}.png $2
    fi
    printf  "$(date) Zeile 107\n" >> foo.bar

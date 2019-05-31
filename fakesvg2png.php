@@ -65,4 +65,5 @@ header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 header( 'Content-type: image/png' );
 header( 'Content-Disposition: attachment; filename="' . addslashes( $_FILES['file']['name'] ) . '.png"' );
 echo $content;
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 68\n", FILE_APPEND);
 die();

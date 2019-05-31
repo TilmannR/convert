@@ -17,7 +17,7 @@ if ( $_FILES['file']['size'] > 6*0x100000 ) {
   header( "Location: $url#tooBig" );
   die();
 }
-file_put_contents('foobar', $(date) phpZeile 18\n, FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND);
 if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   unlink( $uploadName );
   header( "Location: $url#cantmove" );

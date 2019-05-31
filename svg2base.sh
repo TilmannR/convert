@@ -100,7 +100,7 @@ fileSource=$1
    if [ "$pngfilesize" = "0" ];then
     rm ${file}.png
    else
-    optipng ${file}.png
+    #optipng ${file}.png #maybe to slow for large files
     cp ${file}.png $2
    fi
    

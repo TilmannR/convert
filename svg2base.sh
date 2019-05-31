@@ -1,5 +1,5 @@
 #!/bin/bash
-
+printf  "$(date) Zeile 02\n" >> foo.bar
 #Author: Johannes Deml, Johannes Kalliauer
 #Source: http://www.inkscapeforum.com/viewtopic.php?t=16743
 #Download: http://ge.tt/7C8JFmF1/v/0?c
@@ -119,3 +119,4 @@ fileSource=$1
 
 
 echo "$count file(s) converted!"
+printf  "$(date) Zeile 122\n" >> foo.bar

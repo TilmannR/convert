@@ -15,16 +15,16 @@ if ( $_FILES['file']['size'] > 6*0x100000 ) {
   header( "Location: $url#tooBig" );
   die();
 }
-printf  "$(date) phpZeile 18\n" >> foo.bar
+file_put_contents($filename, "$(date) phpZeile 18\n")
 if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   unlink( $uploadName );
   header( "Location: $url#cantmove" );
   echo( 'cant move uploaded file' );
   die();
 }
-printf  "$(date) phpZeile 25\n" >> foo.bar
+file_put_contents($filename, "$(date) phpZeile 25\n")
 exec( './svg2base.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
-printf  "$(date) phpZeile 27\n" >> foo.bar
+file_put_contents($filename, "$(date) phpZeile 27\n")
 unlink( $fileName );
 $file = 'tmp.svg';
 // Öffnet die Datei, um den vorhandenen Inhalt zu laden

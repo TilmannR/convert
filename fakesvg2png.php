@@ -1,17 +1,22 @@
 <?php
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 02\n", FILE_APPEND);
 $tool_user_name = 'svgworkaroundbot';
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 04\n", FILE_APPEND);
 include_once ( 'shared/common.php' ) ;
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 06\n", FILE_APPEND);
 error_reporting( E_ALL & ~E_NOTICE ); # Don't clutter the directory with unhelpful stuff
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 08\n", FILE_APPEND);
 $url = getProtocol() . "://tools.wmflabs.org/$tool_user_name/";
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 10\n", FILE_APPEND);
 if ( !array_key_exists( 'file', $_FILES ) ) {
   header( "Location: $url" );
   die();
 }
-file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 10\n", FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 15\n", FILE_APPEND);
 $uploadName = $_FILES['file']['tmp_name'];
 $fileName = $uploadName . '.svg';
 $targetName = $fileName . '.png';
-file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 13\n", FILE_APPEND);
+file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 19\n", FILE_APPEND);
 if ( $_FILES['file']['size'] > 6*0x100000 ) {
   unlink( $uploadName );
   header( "Location: $url#tooBig" );

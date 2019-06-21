@@ -56,7 +56,7 @@ $handle = fopen( $targetName, 'r' );
 if ( $handle === false ) {
   header( "Location: $url#conversionError" );
   echo( 'error converting the file' );
-  die();
+  // die();
 }
 if ( filesize( $targetName ) > 10*0x100000 ) {
   fclose( $handle );

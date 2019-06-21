@@ -96,25 +96,17 @@ if [ $ScourScour = 'YES' ]; then
  cp $i Output095.svg
  python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar097
  python3 -m scour.scour -i tmpJK2.svg -o tmpJK23.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar098
- python3 -m scour.scour -i tmpJK2.svg -o tmpJK203.svg
- python -m scour.scour -i tmpJK2.svg -o tmpJK204.svg
- python3 -m scour -i tmpJK2.svg -o tmpJK205.svg
- scour -i tmpJK2.svg -o tmpJK206.svg
- scour.scour -i tmpJK2.svg -o tmpJK207.svg
- python3  scour.scour -i tmpJK2.svg -o tmpJK208.svg
- $scour -i tmpJK2.svg -o tmpJK209.svg
- $ScourJK -i tmpJK2.svg -o tmpJK210.svg
- svgcleaner tmpJK2.svg cout.svg --allow-bigger-file
  cp $i2 Output097.svg
  #cp $i $i2
 echo $i, $i2, $i3
  #cp $i2 tmpJK2.svg
  cp $i2 $i
  #cp tmpJK2.svg Output100.svg
- #python3 ./FFlow2TextBySed.py tmpJK2.svg OutputJK2.svg
- cp $i2 OutputJK2.svg
+ python3 ./FFlow2TextBySed.py tmpJK2.svg OutputJK203.svg
+ python3 ./FFlow2TextBySed.py $i $i2
+ #cp $i2 OutputJK2.svg
 
- mv OutputJK2.svg $i
+ mv $i2 $i
 else
  echo no ScourScour $ScourScour
 fi

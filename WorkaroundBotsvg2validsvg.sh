@@ -90,10 +90,10 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https:/
 #cp $i Output90.svg
 if [ $ScourScour = 'YES' ]; then
  export scour
- echo runScourScour $ScourJK $ScourScour
+ echo runScourScour $ScourJK $ScourScour >foobar93
  #rm tmp.svg
  #cp $i Output095.svg
- $ScourJK -i "${i}" -o tmpJK2.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar
+ python3 -m scour.scour -i "${i}" -o tmpJK2.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar
  #cp $i $i2
 echo $i, $i2, $i3
  #cp $i2 tmpJK2.svg

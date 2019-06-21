@@ -11,9 +11,11 @@
 
 #rm -f $1
 
-export i=$1
+#---- 
 
-#----
+export i=$1
+export i2=$2
+export i3=$2.svg
 
 ~/.bash_profile
 
@@ -26,18 +28,20 @@ validValid=$5
 if [ -z ${SVGCleaner+x} ]; then
  SVGCleaner=YES
 fi
-if [ -z ${ScourScour+x} ]; then
- ScourScour=NO
+if [ -z ${EinzeilTags+x} ]; then
+ EinzeilTags=YES
 fi
 if [ -z ${ScourScour+x} ]; then
+ ScourScour=YES
+fi
+if [ -z ${validValid+x} ]; then
  validValid=NO
 fi
 
-# wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
 
-if [ $SVGCleaner = '' ]; then
- SVGCleaner=YES
-fi
+#if [ $SVGCleaner = '' ]; then
+# SVGCleaner=YES
+#fi
 
 if [ $HOSTNAME = LAPTOP-K1FUMMIP ]; then
  rm -f $1
@@ -54,10 +58,16 @@ else
 fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
 
+
+# ---- Begin ----
+
+
+if [ $EinzeilTags = 'YES' ]; then
   sed -i "s/\r/ /g" $i #remove carriage return (DOS,MAC)
   sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/\n[[:space:]]+/ /g" $i #reduce to one space
   #sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/[[:space:]\r\n]+/ /g" $i #no need for that
-  sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern|text|metadata) /\r\n<\1 /g' $i
+  sed -ri 's/[[:space:]]*<(g|path|svg|flowRoot|defs|clipPath|radialGradient|linearGradient|filter|mask|pattern|text|metadata|!--|image|inkscape:perspective) /\n<\1 /g' $i
+fi
 
 #remove empty flow Text in svg (first update svg2validsvg.sh)
 #remove empty flow Text in svg (everything else will be done by https://github.com/JoKalliauer/cleanupSVG/blob/master/Flow2TextByInkscape.sh )
@@ -68,24 +78,27 @@ sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\'
 
 sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https://bugs.launchpad.net/inkscape/+bug/1763190
 
- #copied from FFlow2TextBySed.sh https://github.com/JoKalliauer/cleanupSVG/blob/master/FFlow2TextBySed.sh
- sed -ri "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\';]*)>[[:space:]]*<flowRegion([-[:alnum:]=:\" #;\.%\',]*)>[[:space:]]*<rect([-[:lower:][:digit:]\"= \.:;]*) x=\"([-[:digit:]\. ]+)\" y=\"([-[:digit:]\. ]+)\"([-[:alnum:]=\.\" \#:;\',]*)\/>[[:space:]]*<\/flowRegion>[[:space:]]*<flowPara([-[:alnum:]\.=\" \:\#;\%]*)>([-−[:alnum:] \{\}\(\)\+\ \ \.\?\']+)<\/flowPara>[[:space:]]*<\/flowRoot>/<text x=\"\4\" y=\"\5\"\1><tspan x=\"\4\" y=\"\5\"\7>\8<\/tspan><\/text>/g" $i
- 
 
 if [ $ScourScour = 'YES' ]; then
  export scour
  echo runScourScour $ScourJK $ScourScour
  #rm tmp.svg
- $ScourJK -i $i -o $2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --disable-style-to-xml  --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data --error-on-flowtext # --enable-comment-stripping --create-groups  #--enable-viewboxing #
+ $ScourJK -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data #--disable-style-to-xml --error-on-flowtext # --enable-comment-stripping --create-groups  #--enable-viewboxing #
+
+ python3 ./FFlow2TextBySed.py $i2 $i3
  rm $i
- mv $2 $i
-else 
+ mv $i3 $i
+else
  echo no ScourScour $ScourScour
 fi
 
 if [ $SVGCleaner = 'YES' ]; then
- svgcleaner $i $2 --allow-bigger-file --indent 1 --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments no --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements no --remove-metadata no --remove-needless-attributes yes --remove-nonsvg-attributes no --remove-nonsvg-elements no --remove-text-attributes no --remove-title no --remove-unreferenced-ids no --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-version yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids no --trim-paths yes --ungroup-defs yes --ungroup-groups no --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 7 --copy-on-error
- cp -f $2 $i
+ echo runsvgcleaner $SVGCleaner
+ svgcleaner $i $i2 --allow-bigger-file --indent 1 --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments no --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements no --remove-metadata no --remove-needless-attributes yes --remove-nonsvg-attributes no --remove-nonsvg-elements no --remove-text-attributes no --remove-title no --remove-unreferenced-ids no --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-version yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids no --trim-paths yes --ungroup-defs yes --ungroup-groups no --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 7 #--copy-on-error
+ rm $i
+ mv $i2 $i
+else 
+ echo no SVGCleaner $SVGCleaner
 fi
 if [ $validValid = 'YES' ]; then
  svgcleaner $i $2 --allow-bigger-file --indent 1 --remove-nonsvg-attributes yes --remove-nonsvg-elements yes --remove-version yes --remove-text-attributes yes --remove-needless-attributes yes --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments yes --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements yes --remove-metadata no --remove-title yes --remove-unreferenced-ids yes --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids yes --trim-paths yes --ungroup-defs yes --ungroup-groups yes --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 5
@@ -94,7 +107,6 @@ fi
 
 #remove useless metadata
 sed -i "s/<metadata id=\"metadata8\">  <rdf:RDF>  <cc:Work rdf:about=\"\">  <dc:format>image\/svg+xml<\/dc:format>  <dc:type rdf:resource=\"http:\/\/purl.org\/dc\/dcmitype\/StillImage\"\/>  <dc:title\/>  <\/cc:Work>  <\/rdf:RDF>  <\/metadata>//" $i
-
 
 
 #Remove CDATA by AdobeIllustrator
@@ -110,7 +122,8 @@ sed -i "s/src: url(\"data:font\/woff;charset=utf-8;base64,data:application\/x-fo
 ## == Workarounds for Librsvg ==
 
 #Repair WARNING in <mask> with id=ay: Mask element found with maskUnits set. It will not be rendered properly by Wikimedia's SVG renderer. See https://phabricator.wikimedia.org/T55899 for details
-sed -ri "s/<mask([[:alnum:] =\"]*) maskUnits=\"userSpaceOnUse\"( id=\"[[:alnum:]_]+\"|)>/<mask\1\2>/g" $i
+#copied from svg2validsvg
+sed -ri "s/<mask([-[:alnum:]_ =\".]*) maskUnits=\"userSpaceOnUse\"([[:alnum:]=_\". ]*)>/<mask\1\2>/g" $i
 
 #Change spaces to , in stroke-dasharray (solves librsvg-Bug https://phabricator.wikimedia.org/T32033 )
 sed -ri 's/stroke-dasharray=\"([[:digit:]\.,]*)([[:digit:]\.]+) ([[:digit:]\., ]+)\"/stroke-dasharray=\"\1\2,\3\"/g' $i
@@ -125,6 +138,7 @@ sed -ri "s/<text([-[:alnum:]\.\"\#\ =\(\)]*) x=\"([-[:digit:]\.]+)( |,)([-[:digi
 sed -ri "s/<text([-[:alnum:]\.\"\#\ =\(\)]*) y=\"([-[:digit:]\.]+)( |,)([-[:digit:]\. ,]+)\"([-[:alnum:]\.\"\#\ =\,]*)>/<text y=\"\2\"\1\5>/g" $i # remove multipe y-koordinates in text (solves librsvg-Bug)
 
 #Repair https://phabricator.wikimedia.org/T68672 (solves librsvg-Bug)
+#from svg2validsvg
 sed -ri "s/<style( id=\"[[:alnum:]]*\"|)>/<style type=\"text\/css\"\1>/" $i
 
 #solved librsvg-Bug T193929 https://phabricator.wikimedia.org/T193929
@@ -152,6 +166,43 @@ sed -ri "s/<tspan([-[:alnum:]\.\"\#\ =]*) x=\"([-[:digit:]\.]+)( |,)([-[:digit:]
 sed -ri "s/<tspan([-[:alnum:]\.\"\#\ =]*) x=\"([-[:digit:]\.]+)( |,)([-[:digit:]\. ,]+)\"([-[:alnum:]\.\"\#\ =]*)>([[:alnum:] \'\+=\.\%\)→])/<tspan x=\"\2\"\1\5>\6<\/tspan><tspan x=\"\4\"\1\5>/g" $i # remove multipe x-koordinates in tspan (solves librsvg-Bug)
 sed -ri "s/<tspan([-[:alnum:]\.\"\#\ =]*) x=\"([-[:digit:]\.]+)( |,)([-[:digit:]\. ,]+)\"([-[:alnum:]\.\"\#\ =]*)>([[:alnum:] \'\+=\.\%\)→])/<tspan x=\"\2\"\1\5>\6<\/tspan><tspan x=\"\4\"\1\5>/g" $i # remove multipe x-koordinates in tspan (solves librsvg-Bug)
 fi
+
+## useless
+
+  #remove useless/empty metadata
+#W3C: element "rdf:RDF" undefined
+#Nu: Warning: This validator does not validate RDF. RDF subtrees go unchecked.
+# use scour/svgcleaner/svgo or https://de.wikipedia.org/wiki/Benutzer:Marsupilami/Inkscape-FAQ#Wie_erstelle_ich_eine_Datei_die_dem_Standard_SVG_1.1_entspricht?
+#copied form validbySed
+sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/[[:space:]\r\n]*<rdf:RDF>[[:space:]\r\n]*<cc:Work( rdf:about=\"\"|)>[[:space:]\r\n]*<dc:format>image\/svg\+xml<\/dc:format>[[:space:]\r\n]*<dc:type rdf:resource=\"http:\/\/purl.org\/dc\/dcmitype\/StillImage\"\/>([[:space:]\r\n]*<dc:title\/>|)[[:space:]\r\n]*<\/cc:Work>[[:space:]\r\n]*<\/rdf:RDF>//" $i
+sed -i -e ':a' -e 'N' -e '$!ba' -e "s/<metadata id=\"metadata[[:digit:]]*\">[[:space:]\r\n]*<\/metadata>//" $i
+   
+
+#W3C: Error: there is no attribute "sodipodi:version"
+#W3C: Error: element "sodipodi:namedview" undefined
+#W3C: Error: element "inkscape:perspective" undefined
+#W3C: Error:  there is no attribute "inkscape:collect"
+#W3C: Error: there is no attribute "sodipodi:cx"
+#W3C: Error: there is no attribute "inkscape:label"
+#W3C: Error:  there is no attribute "sodipodi:nodetypes"
+#Nu: Warning: This validator does not validate Inkscape extensions properly. Inkscape-specific errors may go unnoticed.
+# use scour/svgcleaner --remove-nonsvg-attributes yes --remove-nonsvg-elements yes/svgo
+   sed -i "s/<sodipodi:namedview id=\"namedview[[:digit:]]*\" bordercolor=\"#666666\" borderopacity=\"1\" gridtolerance=\"10\" guidetolerance=\"10\" inkscape:current-layer=\"svg[[:digit:]]*\" inkscape:cx=\"[[:digit:].]*\" inkscape:cy=\"[-[:digit:].]*\" inkscape:pageopacity=\"0\" inkscape:pageshadow=\"2\" inkscape:window-height=\"480\" inkscape:window-maximized=\"0\" inkscape:window-width=\"640\" inkscape:window-x=\"0\" inkscape:window-y=\"0\" inkscape:zoom=\"0.[[:digit:]]*\" objecttolerance=\"10\" pagecolor=\"#ffffff\" showgrid=\"false\"\/>//" $i
+
+   ## invalid file
+   
+#W3C (SVG1.1)  there is no attribute "href"
+#W3C (SVG1.1) Error: required attribute "xlink:href" not specified
+#CorelDraw-Problem (not very common)
+#https://commons.wikimedia.org/wiki/File:IIIIER.svg
+#https://commons.wikimedia.org/wiki/File:Eliandthethirteenthconfession_logo.svg
+sed -i "s/ href=\"/  xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xlink:href=\"/g" $i
+
+## fonts
+sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1\"/g' $i #as automatic
+
+
+# ---- END ----
 
 cp -f $i $2
 

@@ -17,7 +17,7 @@ $uploadName = $_FILES['file']['tmp_name'];
 $fileName = $uploadName . '.svg';
 $targetName = $fileName . '.png';
 file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 19\n", FILE_APPEND);
-if ( $_FILES['file']['size'] > 6*0x100000 ) {
+if ( $_FILES['file']['size'] > 5*0x100000 ) {
   unlink( $uploadName );
   header( "Location: $url#tooBig" );
   die();

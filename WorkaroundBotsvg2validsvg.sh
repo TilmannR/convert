@@ -218,6 +218,8 @@ sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1
 
 cp -f $i $2
 
+cp $i Output4.svg
+
 # python /data/project/shared/pywikipedia/core/scripts/upload.py $i -keep -ignorewarn -noverify -descfile WorkaroundBotsvg2validsvg.sh
 
 # rm $i

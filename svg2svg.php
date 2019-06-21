@@ -53,11 +53,11 @@ unlink( $fileName );
 // // Schreibt den Inhalt in die Datei zurück
 file_put_contents($file, $current);
 $handle = fopen( $targetName, 'r' );
-if ( $handle === false ) {
-  header( "Location: $url#conversionError" );
-  echo( 'error converting the file' );
-  // die();
-}
+// if ( $handle === false ) {
+//   header( "Location: $url#conversionError" );
+//   echo( 'error converting the file' );
+//   // die();
+// }
 if ( filesize( $targetName ) > 10*0x100000 ) {
   fclose( $handle );
   unlink( $targetName );

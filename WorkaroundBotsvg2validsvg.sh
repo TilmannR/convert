@@ -11,8 +11,6 @@
 
 #rm -f $1
 
-#---- 
-
 export i=$1
 export i2=$2
 export i3=$2.svg
@@ -24,6 +22,8 @@ EinzeilTags=YES
 SVGCleaner=$3
 ScourScour=$4
 validValid=$5
+
+#---- 
 
 if [ -z ${SVGCleaner+x} ]; then
  SVGCleaner=YES
@@ -57,8 +57,9 @@ if [ $HOSTNAME = LAPTOP-K1FUMMIP ]; then
  export ScourJK=scour
 else
  if [ $HOSTNAME = tools-sgebastion-07 ]; then
-  rm -f $1
-  wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i 
+  # do not remove this on convert
+  #rm -f $1
+  #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i 
   export ScourJK="python3 -m scour.scour"
  else
   echo did not recognice HOSTNAME $HOSTNAME

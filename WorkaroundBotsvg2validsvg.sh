@@ -87,7 +87,7 @@ sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\'
 
 sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https://bugs.launchpad.net/inkscape/+bug/1763190
 
-
+cp $i Output90.svg
 if [ $ScourScour = 'YES' ]; then
  export scour
  echo runScourScour $ScourJK $ScourScour
@@ -103,6 +103,7 @@ echo $i, $i2, $i3
 else
  echo no ScourScour $ScourScour
 fi
+cp $i Output106.svg
 
 if [ $SVGCleaner = 'YES' ]; then
  echo runsvgcleaner $SVGCleaner

@@ -61,8 +61,9 @@ else
   #rm -f $1
   #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i 
   export ScourJK="python3 -m scour.scour"
+  echo $ScourJK >foobar064
  else
-  echo did not recognice HOSTNAME $HOSTNAME
+  echo did not recognice HOSTNAME $HOSTNAME >foobar065
  fi
 fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
@@ -90,21 +91,20 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https:/
 #cp $i Output90.svg
 if [ $ScourScour = 'YES' ]; then
  export scour
- echo runScourScour $ScourJK $ScourScour >foobar93
+ echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2 >foobar93
  #rm tmp.svg
  cp $i Output095.svg
- python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar
- python3 -m scour.scour -i tmpJK2.svg -o tmpJK23.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar
- cp tmpJK2.svg Output097.svg
+ python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar097
+ python3 -m scour.scour -i tmpJK2.svg -o tmpJK23.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar098
+ cp $i2 Output097.svg
  #cp $i $i2
 echo $i, $i2, $i3
  #cp $i2 tmpJK2.svg
  cp $i2 $i
  #cp tmpJK2.svg Output100.svg
  #python3 ./FFlow2TextBySed.py tmpJK2.svg OutputJK2.svg
- cp tmpJK2.svg OutputJK2.svg
- #rm $i
- #cp OutputJK2.svg Output104.svg
+ cp $i2 OutputJK2.svg
+
  mv OutputJK2.svg $i
 else
  echo no ScourScour $ScourScour

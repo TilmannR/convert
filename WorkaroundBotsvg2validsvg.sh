@@ -38,7 +38,7 @@ if [ -z ${validValid+x} ]; then
  validValid=NO
 fi
 if [ validValid = 'YES' ]; then
- ScourScour=YES
+ ScourScour='YES'
 fi
 
 echo c $SVGCleaner
@@ -87,27 +87,27 @@ sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\'
 
 sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https://bugs.launchpad.net/inkscape/+bug/1763190
 
-cp $i Output90.svg
+#cp $i Output90.svg
 if [ $ScourScour = 'YES' ]; then
  export scour
  echo runScourScour $ScourJK $ScourScour
  #rm tmp.svg
- cp $i Output095.svg
+ #cp $i Output095.svg
  $ScourJK -i "${i}" -o tmpJK2.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar
  #cp $i $i2
 echo $i, $i2, $i3
  #cp $i2 tmpJK2.svg
  cp tmpJK2.svg $i
- cp tmpJK2.svg Output100.svg
+ #cp tmpJK2.svg Output100.svg
  #python3 ./FFlow2TextBySed.py tmpJK2.svg OutputJK2.svg
  cp tmpJK2.svg OutputJK2.svg
  #rm $i
- cp OutputJK2.svg Output104.svg
+ #cp OutputJK2.svg Output104.svg
  mv OutputJK2.svg $i
 else
  echo no ScourScour $ScourScour
 fi
-cp $i Output106.svg
+#cp $i Output106.svg
 
 if [ $SVGCleaner = 'YES' ]; then
  echo runsvgcleaner $SVGCleaner
@@ -223,7 +223,7 @@ sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1
 
 cp -f $i $2
 
-cp $i Output4.svg
+#cp $i Output226.svg
 
 # python /data/project/shared/pywikipedia/core/scripts/upload.py $i -keep -ignorewarn -noverify -descfile WorkaroundBotsvg2validsvg.sh
 

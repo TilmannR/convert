@@ -95,10 +95,11 @@ if [ $ScourScour = 'YES' ]; then
  $ScourJK -i "${i}" -o "${i2}" --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data #--disable-style-to-xml --error-on-flowtext # --enable-comment-stripping --create-groups  #--enable-viewboxing #
  #cp $i $i2
 echo $i, $i2, $i3
- python3 ./FFlow2TextBySed.py $i2 $i3
+ cp $i2 tmp.svg
+ python3 ./FFlow2TextBySed.py tmp.svg Output.svg
 #cp $i2 $i3
  rm $i
- mv $i3 $i
+ mv Output.svg $i
 else
  echo no ScourScour $ScourScour
 fi

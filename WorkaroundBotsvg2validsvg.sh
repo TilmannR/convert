@@ -37,8 +37,8 @@ fi
 if [ -z ${validValid+x} ]; then
  validValid=NO
 fi
-if [ validValid = 'YES' ]; then
- ScourScour='YES'
+if [ $validValid = "YES" ]; then
+ ScourScour="YES"
 fi
 
 echo c $SVGCleaner

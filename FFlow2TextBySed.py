@@ -2,8 +2,8 @@
 
 import sys
 
-inputfile = int(sys.argv[1])
-outputfile = int(sys.argv[2])
+inputfile = (sys.argv[1])
+outputfile = (sys.argv[2])
 
 with open(inputfile, "r+") as fp:
     alllines = fp.readlines()

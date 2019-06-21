@@ -52,8 +52,8 @@ echo v $validValid
 #fi
 
 if [ $HOSTNAME = LAPTOP-K1FUMMIP ]; then
- rm -f $1
- wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
+ #rm -f $1
+ #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
  export ScourJK=scour
 else
  if [ $HOSTNAME = tools-sgebastion-07 ]; then
@@ -91,7 +91,8 @@ if [ $ScourScour = 'YES' ]; then
  export scour
  echo runScourScour $ScourJK $ScourScour
  #rm tmp.svg
- $ScourJK -i "${i}" -o "${i2}" --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data #--disable-style-to-xml --error-on-flowtext # --enable-comment-stripping --create-groups  #--enable-viewboxing #
+ #$ScourJK -i "${i}" -o "${i2}" --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data #--disable-style-to-xml --error-on-flowtext # --enable-comment-stripping --create-groups  #--enable-viewboxing #
+ cp $i $i2
 echo $i, $i2, $i3
 # python3 ./FFlow2TextBySed.py $i2 $i3
 cp $i2 $i3

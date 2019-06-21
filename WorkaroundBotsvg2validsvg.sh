@@ -93,7 +93,7 @@ if [ $ScourScour = 'YES' ]; then
  echo runScourScour $ScourJK $ScourScour >foobar93
  #rm tmp.svg
  cp $i Output095.svg
- python3 -m scour.scour -i "${i}" -o tmpJK2.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar
+ python3 -m scour.scour -i $i -o tmpJK2.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar
  cp tmpJK2.svg Output097.svg
  #cp $i $i2
 echo $i, $i2, $i3

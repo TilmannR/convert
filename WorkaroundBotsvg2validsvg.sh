@@ -1,29 +1,39 @@
 #!/bin/bash
+								 
+																					 
 
+																	
+
+			   
 #Author: Johannes Kalliauer (JoKalliauer)
 #created: 2019-02-20
+																								
 
 # $1 ... input (f.e. Buggy.svg)
 # $2 ... output (f.e. Repaired.svg)
 # $3 ... SVGCleaner (YES or NO)
 # $4 ... scour (YES or NO)
 # $5 ... valid (YES or NO)
+				 
+
 
 #rm -f $1
 
 export i=$1
 export i2=$2
-export i3=$2.svg
+
+SVGCleaner=$3
+ScourScour=$4
+validValid=$5
 
 ~/.bash_profile
 
 T35245tspan=YES
 EinzeilTags=YES
-SVGCleaner=$3
-ScourScour=$4
-validValid=$5
+
 
 #---- 
+export i3=$2.svg
 
 if [ -z ${SVGCleaner+x} ]; then
  SVGCleaner=YES
@@ -57,13 +67,13 @@ if [ $HOSTNAME = LAPTOP-K1FUMMIP ]; then
  export ScourJK=scour
 else
  if [ $HOSTNAME = tools-sgebastion-07 ]; then
-  # do not remove this on convert
+  # do not remove this on convert it might be needed to check
   #rm -f $1
   #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i 
   export ScourJK="python3 -m scour.scour"
   echo $ScourJK >foobar064
  else
-  echo did not recognice HOSTNAME $HOSTNAME >foobar065
+  echo did not recognice HOSTNAME $HOSTNAME
  fi
 fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
@@ -88,29 +98,19 @@ sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\'
 
 sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https://bugs.launchpad.net/inkscape/+bug/1763190
 
-#cp $i Output90.svg
+
 if [ $ScourScour = 'YES' ]; then
  export scour
- echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2 >foobar93
+ echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
  #rm tmp.svg
- cp $i Output095.svg
- /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar097
- /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i tmpJK2.svg -o tmpJK23.svg --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data >foobar098
- cp $i2 Output097.svg
- #cp $i $i2
-echo $i, $i2, $i3
- #cp $i2 tmpJK2.svg
- cp $i2 $i
- #cp tmpJK2.svg Output100.svg
- python3 ./FFlow2TextBySed.py tmpJK2.svg OutputJK203.svg
- python3 ./FFlow2TextBySed.py $i $i2
- #cp $i2 OutputJK2.svg
+ /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data 
 
- mv $i2 $i
+ python3 ./FFlow2TextBySed.py $i2 $i3
+ rm $i
+ mv $i3 $i
 else
  echo no ScourScour $ScourScour
 fi
-#cp $i Output106.svg
 
 if [ $SVGCleaner = 'YES' ]; then
  echo runsvgcleaner $SVGCleaner
@@ -225,6 +225,21 @@ sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1
 # ---- END ----
 
 cp -f $i $2
+
+																																																																							
+
+										
+					  
+						
+	
+											 
+				 
+																														  
+	   
+	 
+										   
+   
+  
 
 #cp $i Output226.svg
 

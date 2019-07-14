@@ -64,7 +64,7 @@ echo v $validValid
 if [ $HOSTNAME = LAPTOP-K1FUMMIP ]; then
  #rm -f $1
  #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
- export ScourJK=scour
+ export ScourJK="python3 -m scour.scour"
 else
  if [ $HOSTNAME = tools-sgebastion-07 ]; then
   # do not remove this on convert it might be needed to check
@@ -131,6 +131,7 @@ sed -i "s/<metadata id=\"metadata8\">  <rdf:RDF>  <cc:Work rdf:about=\"\">  <dc:
 
 #Remove CDATA by AdobeIllustrator
 sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/<\!\[CDATA\[([[:alnum:]=+\/\t\n[:space:]@:;\(\)\"\,\'\{\}\-])*\t\]\]>[[:space:]]*//g" $i #Remove CDATA
+sed -ri -e ':a' -e 'N' -e "s/<i:pgf[[:lower:] =\"_]*>[[:space:][:alnum:]\/=\+]*<\/i:pgf>//" $i #Remove AI-Elemtents for CDATA
 
 #remove jpg im metadata
 sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/<xapGImg:image>([[:alnum:][:space:]\/+])*={0,2}[[:space:]]*<\/xapGImg:image>//g" $i

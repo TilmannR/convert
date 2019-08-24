@@ -98,6 +98,8 @@ sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/<flowRoot([-[:alnum:]\.=\" \:\(\)\%\#\,\'
 
 sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https://bugs.launchpad.net/inkscape/+bug/1763190
 
+ sed -i "s/ inkscape:connector-curvature=\"0\"//g" $i #https://commons.wikimedia.org/wiki/File:Royal_Monogram_of_Princess_Adityadhornkitikhun.svg
+
 
 if [ $ScourScour = 'YES' ]; then
  export scour

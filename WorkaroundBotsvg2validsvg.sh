@@ -14,6 +14,7 @@
 # $3 ... SVGCleaner (YES or NO)
 # $4 ... scour (YES or NO)
 # $5 ... valid (YES or NO)
+# $6 ....kerning (YES or NO)
 				 
 
 
@@ -25,6 +26,7 @@ export i2=$2
 SVGCleaner=$3
 ScourScour=$4
 validValid=$5
+kerningKerning=$6
 
 ~/.bash_profile
 
@@ -224,6 +226,9 @@ sed -i "s/ href=\"/  xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xlink:href
 ## fonts
 sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1\"/g' $i #as automatic
 
+if [ $kerningKerning = 'YES' ]; then
+ ./T36947kerning.sh
+fi
 
 # ---- END ----
 

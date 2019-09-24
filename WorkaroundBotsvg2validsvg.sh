@@ -226,9 +226,33 @@ sed -i "s/ href=\"/  xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xlink:href
 ## fonts
 sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1\"/g' $i #as automatic
 
-if [ $kerningKerning = 'YES' ]; then
- ./T36947kerning.sh
-fi
+#if [ $kerningKerning = 'YES' ]; then
+# ./T36947kerning.sh
+	#put viewBox at the beginning (otherwise I will have a variable to less)
+	sed -ri 's/<svg([-[:alnum:]=\" \.\/:\,\(\)_#]+) viewBox="([-[:digit:] \.]+)"([-[:alnum:]=\" \.\/:\,\(\);#]*)>/<svg viewBox="\2"\1\3>/' $i
+	sed -ri 's/\r/\n/g' $i
+	
+    #Define file as a variable
+    export h=$(sed -r 's/<svg viewBox="([-[:digit:]]+) ([-[:digit:]]+) ([[:digit:]]+)\.([[:digit:]])([[:digit:]]*) ([[:digit:]]+)\.([[:digit:]])([[:digit:]]*)"([-[:alnum:]=\" \.\/:\,\(\)_;]+)>/<svg viewBox="\1 \2 \3\4.\50 \6\7.\80"\9><g transform="scale(10)">/' $i)
+    
+    #Reading out the relevant line
+    export j=$(ls -l|grep -E "viewBox=\"[-[:digit:].]{1,8} [-[:digit:].]{1,8} [[:digit:].]{2,11} [[:digit:].]{2,11}" $i)
+    
+    #Insert a special character to define the point of splitting
+    export l=$(echo $j | sed -e "s/viewBox=\"/>/g" )
+    
+    #split at this special character and take the part afterwards
+    export m=$(echo $l | cut -f2 -d">")
+    
+    #Multiply the four numbers by a factor of 10
+    export n=$(echo $m | awk  '{printf "%f %f %f %f\n",$1*10,$2*10,$3*10,$4*10}')
+    
+    #Replace the old four numbers with the new four numbers
+    sed -ri "s/<svg([-[:alnum:]=\" \.\/:;\,#]*) viewBox=\"[-[:digit:]\.]+ [-[:digit:]\.]+ [[:digit:]\.]+ [[:digit:]\.]+\"([-[:alnum:]=\" \.\/:\,#\(\)_;]+)>/<svg\1 viewBox=\"$n\"\2>\n<g transform=\"scale(10)\">/" $i
+ #----
+
+  sed -ri 's/<\/svg>/<\/g>\n<\/svg>/' $i
+#fi
 
 # ---- END ----
 

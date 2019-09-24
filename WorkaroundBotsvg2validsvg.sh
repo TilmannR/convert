@@ -226,7 +226,7 @@ sed -i "s/ href=\"/  xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xlink:href
 ## fonts
 sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1\"/g' $i #as automatic
 
-#if [ $kerningKerning = 'YES' ]; then
+if [ $kerningKerning = 'YES' ]; then
 # ./T36947kerning.sh
 	#put viewBox at the beginning (otherwise I will have a variable to less)
 	sed -ri 's/<svg([-[:alnum:]=\" \.\/:\,\(\)_#]+) viewBox="([-[:digit:] \.]+)"([-[:alnum:]=\" \.\/:\,\(\);#]*)>/<svg viewBox="\2"\1\3>/' $i
@@ -252,7 +252,7 @@ sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1
  #----
 
   sed -ri 's/<\/svg>/<\/g>\n<\/svg>/' $i
-#fi
+fi
 
 # ---- END ----
 

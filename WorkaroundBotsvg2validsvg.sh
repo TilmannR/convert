@@ -57,6 +57,7 @@ echo c $SVGCleaner
 echo e $EinzeilTags
 echo s $ScourScour
 echo v $validValid
+echo k $kerningKerning
 
 
 #if [ $SVGCleaner = '' ]; then

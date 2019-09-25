@@ -48,7 +48,7 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   echo( 'cant move uploaded file' );
   die();
 }
-exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) . ' ' . $drei . ' ' . $vier . ' ' . $funf . '' . $sechs );
+exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) . ' ' . $drei . ' ' . $vier . ' ' . $funf . ' ' . $sechs );
 unlink( $fileName );
 // $file = 'tmp_svg2svg.log';
 // // Öffnet die Datei, um den vorhandenen Inhalt zu laden

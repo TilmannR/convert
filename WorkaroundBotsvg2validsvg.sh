@@ -49,6 +49,9 @@ fi
 if [ -z ${validValid+x} ]; then
  validValid=NO
 fi
+if [ -z ${kerningKerning+x} ]; then
+ kerningKerning=NO
+fi
 if [ $validValid = "YES" ]; then
  ScourScour="YES"
 fi
@@ -59,7 +62,9 @@ echo s $ScourScour
 echo v $validValid
 echo k $kerningKerning
 
+echo "\n \n" >> outbut.log
 echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid k $kerningKerning >> outbut.log
+echo 1 $1 2 $2 3$3 4 $4 5 $5 6 $6 7 $7 >> outbut.log
 
 
 #if [ $SVGCleaner = '' ]; then

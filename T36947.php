@@ -27,7 +27,7 @@ if ( $validEnabled ) {
 }
 $kerningEnabled = isset( $_POST['kerning'] );
 $sechs='NO';
-if ( $kerning ) {
+if ( $kerningEnabled ) {
 	$sechs = 'YES';
 }
 $inkscapeEnabled = isset( $_POST['RunInkscape'] );

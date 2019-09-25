@@ -59,6 +59,8 @@ echo s $ScourScour
 echo v $validValid
 echo k $kerningKerning
 
+echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid k $kerningKerning >> outbut.log
+
 
 #if [ $SVGCleaner = '' ]; then
 # SVGCleaner=YES

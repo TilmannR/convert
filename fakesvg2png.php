@@ -33,13 +33,13 @@ file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$
 exec( './svg2base.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) );
 file_put_contents('foobar', time(), FILE_APPEND); file_put_contents('foobar', "$(date) phpZeile 27\n", FILE_APPEND);
 unlink( $fileName );
-$file = 'tmp.svg';
-// Öffnet die Datei, um den vorhandenen Inhalt zu laden
-$current = file_get_contents($file);
-// Fügt eine neue Person zur Datei hinzu
-$current .= "John Smith\n";
-// Schreibt den Inhalt in die Datei zurück
-file_put_contents($file, $current);
+// $file = 'tmp.svg';
+// // Öffnet die Datei, um den vorhandenen Inhalt zu laden
+// $current = file_get_contents($file);
+// // Überschreibt den Text
+// //$current .= "John Smith\n";
+// // Schreibt den Inhalt in die Datei zurück
+// file_put_contents($file, $current);
 $handle = fopen( $targetName, 'r' );
 if ( $handle === false ) {
   header( "Location: $url#conversionError" );

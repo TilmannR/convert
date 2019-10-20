@@ -33,13 +33,13 @@ fileSource=$1
  export tmp=${fileN%.base64}
 
  #If you want to overwrite the existing file, without any backup, delete the following three lines
- export i=${tmp}s.svg
- if [ -f "$i" ]; then
-  echo no renaming
- else
+ export i=${tmp}.svg
+ #if [ -f "$i" ]; then
+ # echo no renaming
+ #else
   echo move
   scour -i ${fileSource} -o $i --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 $META $INDENT --renderer-workaround --disable-style-to-xml  --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data # --enable-comment-stripping --create-groups  #--enable-viewboxing # 
- fi
+ #fi
  
  #mv "${fileSource}.$sourceType" "${fileSource}2.xml"
  echo $i
@@ -56,7 +56,7 @@ fileSource=$1
   
   grep "iVBORw0KGgoAAAANSUhEUgAA" $i > $file.png_base64
   grep "\/9j\/4AAQSkZJRgABA..A....AAD\/"  $i > $file.jpeg_base64
-  printf  "$(date) Zeile 59\n" >> foo.bar
+  #printf  "$(date) Zeile 59\n" >> foo.bar
   linenumbers=$(wc -l $file.png_base64|awk '{print $1}')
   if [ "$linenumbers" -gt 0 ]; then
    if [ "$linenumbers" = 1 ]; then 

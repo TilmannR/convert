@@ -33,12 +33,12 @@ fileSource=$1
  export tmp=${fileN%.base64}
 
  #If you want to overwrite the existing file, without any backup, delete the following three lines
- export i=${tmp}
+ export i=${tmp}s.svg
  if [ -f "$i" ]; then
   echo no renaming
  else
   echo move
-  mv "${fileSource}" $i
+  scour -i ${fileSource} -o $i --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 $META $INDENT --renderer-workaround --disable-style-to-xml  --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data # --enable-comment-stripping --create-groups  #--enable-viewboxing # 
  fi
  
  #mv "${fileSource}.$sourceType" "${fileSource}2.xml"
@@ -48,14 +48,14 @@ fileSource=$1
   file=${i%.base64}
   echo $count". "$i" -> "${file}.base64
   printf  "$(date) Zeile 50\n" >> foo.bar
-  sed -ri "s/iVBORw0KGgoAAAANSUhEUgAA/ \n iVBORw0KGgoAAAANSUhEUgAA/g" $i
-  sed -ri "s/\/9j\/4AAQSkZJRgABAg(.)A(....)AAD\/7AARRHVja3kAAQAEAAAAHgAA/ \n \/9j\/4AAQSkZJRgABAg\1A\2AAD\/7AARRHVja3kAAQAEAAAAHgAA/g" $i
-  sed -ri "s/(AAAAAElFTkSuQmCC|=)[ ]*\"(\/>| )/\1\n\"\2/g" $i
+  sed -ri "s/iVBORw0KGgoAAAANSUhEUgAA/ \niVBORw0KGgoAAAANSUhEUgAA/g" $i #linebreak before PNG
+  sed -ri "s/\/9j\/4AAQSkZJRgABA(..)A(....)AAD\// \n\/9j\/4AAQSkZJRgABA\1A\2AAD\//g" $i #linebreak before JPG
+  sed -ri "s/(AAAAAElFTkSuQmCC| QmCC|=)[ ]*\"(\/>| )/\1\n\"\2/g" $i #linebreak after end
   sed -ri "s/\r/ /" $i
   sed -ri "s/\n/ /" $i
   
   grep "iVBORw0KGgoAAAANSUhEUgAA" $i > $file.png_base64
-  grep "\/9j\/4AAQSkZJRgABAg.A....AAD\/7AARRHVja3kAAQAEAAAAHgAA"  $i > $file.jpeg_base64
+  grep "\/9j\/4AAQSkZJRgABA..A....AAD\/"  $i > $file.jpeg_base64
   printf  "$(date) Zeile 59\n" >> foo.bar
   linenumbers=$(wc -l $file.png_base64|awk '{print $1}')
   if [ "$linenumbers" -gt 0 ]; then

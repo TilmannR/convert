@@ -38,8 +38,8 @@ fileSource=$1
  # echo no renaming
  #else
   echo move
-  cp $fileSource $2
   scour -i ${fileSource} -o $i --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 $META $INDENT --renderer-workaround --disable-style-to-xml  --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data # --enable-comment-stripping --create-groups  #--enable-viewboxing # 
+  cp $i $2 #debug
  #fi
  
  #mv "${fileSource}.$sourceType" "${fileSource}2.xml"
@@ -56,6 +56,7 @@ fileSource=$1
   sed -ri "s/\n/ /" $i
   
   grep "iVBORw0KGgoAAAANSUhEUgAA" $i > $file.png_base64
+  cp $file.png_base64 $2 #debug
   grep "\/9j\/4AAQSkZJRgABA..A....AAD\/"  $i > $file.jpeg_base64
   #printf  "$(date) Zeile 59\n" >> foo.bar
   linenumbers=$(wc -l $file.png_base64|awk '{print $1}')
@@ -63,6 +64,7 @@ fileSource=$1
    if [ "$linenumbers" = 1 ]; then 
     sed -i "s/ /\n/g" $file.png_base64
     base64 --decode ${file}.png_base64 > ${file}.png
+    cp ${file}.png $2 #debug
     pngfilesize=$(wc -c ${file}.png|awk '{print $1}')
     if [ "$pngfilesize" = "0" ];then
      rm ${file}.png
@@ -88,6 +90,7 @@ fileSource=$1
    
    #if [ "$outputType" = "png" ];then #png
     base64 --decode ${file}.png_base64 > ${file}.png
+	cp ${file}.png $2 #debug
    #elif [ "$outputType" = "jpeg" ] || [ "$outputType" = "jpg" ];then
     base64 --decode ${file}.jpeg_base64 > ${file}.jpeg
    #fi

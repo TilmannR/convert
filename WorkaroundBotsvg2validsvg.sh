@@ -124,6 +124,15 @@ else
  echo no ScourScour $ScourScour
 fi
 
+   ## invalid file
+   
+#W3C (SVG1.1)  there is no attribute "href"
+#W3C (SVG1.1) Error: required attribute "xlink:href" not specified
+#CorelDraw-Problem (not very common)
+#https://commons.wikimedia.org/wiki/File:IIIIER.svg
+#https://commons.wikimedia.org/wiki/File:Eliandthethirteenthconfession_logo.svg
+sed -i "s/ href=\"/  xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xlink:href=\"/g" $i
+
 if [ $SVGCleaner = 'YES' ]; then
  echo runsvgcleaner $SVGCleaner
  svgcleaner $i $i2 --allow-bigger-file --indent 1 --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments no --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements no --remove-metadata no --remove-needless-attributes yes --remove-nonsvg-attributes no --remove-nonsvg-elements no --remove-text-attributes no --remove-title no --remove-unreferenced-ids no --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-version yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids no --trim-paths yes --ungroup-defs yes --ungroup-groups no --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 7 #--copy-on-error
@@ -229,7 +238,7 @@ sed -i -e ':a' -e 'N' -e '$!ba' -e "s/<metadata id=\"metadata[[:digit:]]*\">[[:s
 #CorelDraw-Problem (not very common)
 #https://commons.wikimedia.org/wiki/File:IIIIER.svg
 #https://commons.wikimedia.org/wiki/File:Eliandthethirteenthconfession_logo.svg
-sed -i "s/ href=\"/  xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xlink:href=\"/g" $i
+#sed -i "s/ href=\"/  xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xlink:href=\"/g" $i
 
 ## fonts
 sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1\"/g' $i #as automatic

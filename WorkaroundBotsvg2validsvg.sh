@@ -111,7 +111,7 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https:/
  sed -i "s/ inkscape:connector-curvature=\"0\"//g" $i #https://commons.wikimedia.org/wiki/File:Royal_Monogram_of_Princess_Adityadhornkitikhun.svg
 
 
-if [ $ScourScour = 'YES' ]; then
+if [ $validValid = 'YES' ]; then
  export scour
  echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
  #rm tmp.svg
@@ -121,8 +121,20 @@ if [ $ScourScour = 'YES' ]; then
  rm $i
  mv $i3 $i
 else
- echo no ScourScour $ScourScour
+ if [ $ScourScour = 'YES' ]; then
+  export scour
+  echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
+  #rm tmp.svg
+  /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data --disable-style-to-xml
+
+  python3 ./FFlow2TextBySed.py $i2 $i3
+  rm $i
+  mv $i3 $i
+ else
+  echo no ScourScour $ScourScour
+ fi
 fi
+
 
    ## invalid file
    

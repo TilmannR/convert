@@ -72,11 +72,12 @@ elif [ $HOSTNAME = tools-sgebastion-07 ]; then
  PC=WikiMedia
 elif [ $HOSTNAME = DESKTOP-7VKND0M ]; then
  PC=local
-elif [ $HOSTNAME =  tools-sgewebgrid-lighttpd-0915 ]; then
+elif [[ $HOSTNAME =  tools-sgewebgrid-lighttpd-* ]]; then
  PC=WikiMedia
 else
  echo did not recognice HOSTNAME $HOSTNAME
 fi
+echo $PC
 
 if [ -z "$1" ]
   then

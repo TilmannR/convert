@@ -14,6 +14,3 @@ git status
         [Nn]* ) exit;;
         * ) echo "Please answer yes or no.";;
     esac
-git commit -m "Update"
-git status
-git push

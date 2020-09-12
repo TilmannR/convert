@@ -7,8 +7,7 @@ git config core.eol lf
 #git status
 git add .
 git status
-#read -p "Press enter to continue" #Press Control C for stop
-git status
+
     read -p "Do you wish to proceed?" yn
     case $yn in
         [Yy]* ) git commit -m "Update";git push;;

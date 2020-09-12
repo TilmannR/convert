@@ -101,7 +101,7 @@ else
  fi
 fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
-#echo HN $HOSTNAME > foobar070
+echo HN $HOSTNAME > foobar070
 
 # ---- Begin ----
 

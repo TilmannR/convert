@@ -116,7 +116,9 @@ if [ $validValid = 'YES' ];
  echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
  #rm tmp.svg
  python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data 
+ sed -n '1p' $i2 > foobar119
  python3 ./FFlow2TextBySed.py $i2 $i3
+ sed -n '1p' $i3 > foobar121
  rm $i
  mv $i3 $i
 else

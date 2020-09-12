@@ -72,6 +72,8 @@ elif [ $HOSTNAME = tools-sgebastion-07 ]; then
  PC=WikiMedia
 elif [ $HOSTNAME = DESKTOP-7VKND0M ]; then
  PC=local
+elif [ $HOSTNAME =  tools-sgewebgrid-lighttpd-0915 ]; then
+ PC=WikiMedia
 else
  echo did not recognice HOSTNAME $HOSTNAME
 fi
@@ -87,7 +89,7 @@ if [ $HOSTNAME = DESKTOP-7VKND0M ]; then
  wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
  export ScourJK="python3 -m scour.scour"
 else
- if [ $HOSTNAME = tools-sgebastion-07 ]; then
+ if [ $PC = WikiMedia ]; then
   # do not remove this on convert it might be needed to check
   #rm -f $1
   #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i 
@@ -128,7 +130,7 @@ if [ $validValid = 'YES' ];
  export scour
  echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
  #rm tmp.svg
- if [ $HOSTNAME = tools-sgebastion-07 ]; then
+ if [ $PC = WikiMedia ]; then
   /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data  
  else
   python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data 
@@ -144,7 +146,7 @@ else
   export scour
   echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
   #rm tmp.svg  # /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i
-  if [ $HOSTNAME = tools-sgebastion-07 ]; then
+  if [ $PC = WikiMedia ]; then
    sed -n '1p' $i > foobar148
    /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
    sed -n '1p' $i2 > foobar149

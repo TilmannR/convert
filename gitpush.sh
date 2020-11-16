@@ -6,6 +6,7 @@ git config --global core.eol lf
 git config core.eol lf
 #git status
 git add .
+git reset -- *.del
 git status
 
     read -p "Do you wish to proceed?" yn

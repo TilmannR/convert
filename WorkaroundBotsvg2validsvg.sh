@@ -72,6 +72,10 @@ elif [ $HOSTNAME = tools-sgebastion-07 ]; then
  PC=WikiMedia
 elif [ $HOSTNAME = DESKTOP-7VKND0M ]; then
  PC=local
+elif  [ $HOSTNAME = localhost.localdomain ]; then
+ PC=local
+elif  [ $HOSTNAME = fedora ]; then
+ PC=local
 elif [[ $HOSTNAME =  tools-sgewebgrid-lighttpd-* ]]; then
  PC=WikiMedia
 else
@@ -102,7 +106,7 @@ else
  fi
 fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
-echo HN $HOSTNAME > foobar070
+echo HN $HOSTNAME > foobar070.del
 
 # ---- Begin ----
 
@@ -152,9 +156,9 @@ else
    /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
    sed -n '1p' $i2 > foobar149
   else
-   sed -n '1p' $i > foobar152
+   sed -n '1p' $i > foobar152.del
    python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data 
-   sed -n '1p' $i2 > foobar154
+   sed -n '1p' $i2 > foobar154.del
   fi
   python3 ./FFlow2TextBySed.py $i2 $i3
   sed -n '1p' $i3 > foobar133

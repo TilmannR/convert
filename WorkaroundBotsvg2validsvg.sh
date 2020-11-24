@@ -89,7 +89,7 @@ if [ -z "$1" ]
 	exit
 fi
 
-if [ $HOSTNAME = DESKTOP-7VKND0M ]; then
+if [ $PC = local ]; then
  rm -f $1
  wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
  export ScourJK="python3 -m scour.scour"

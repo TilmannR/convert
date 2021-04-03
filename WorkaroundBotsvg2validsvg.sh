@@ -91,12 +91,15 @@ echo $PC
 if [ -z "$1" ]
   then
     echo "No inputfile supplied"
-	exit
+    if [ -z "$i" ]
+    then
+	 exit
+	fi
 fi
 
 if [ $PC = local ]; then
- rm -f $1
- wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
+ #rm -f $1
+ #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
  export ScourJK="python3 -m scour.scour"
 else
  if [ $PC = WikiMedia ]; then

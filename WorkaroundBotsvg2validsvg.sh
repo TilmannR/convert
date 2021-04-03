@@ -7,8 +7,8 @@
 # $3 ... SVGCleaner (YES or NO)
 # $4 ... scour (YES or NO)
 # $5 ... valid (YES or NO)
-# $6 ....kerning (YES or NO)
-				 
+# $6 ....safe (YES or NO)
+# $7 ....kerning (YES or NO)
 
 
 #rm -f $1
@@ -19,7 +19,8 @@ export i2=$2
 SVGCleaner=$3
 ScourScour=$4
 validValid=$5
-kerningKerning=$6
+safe=$6
+kerningKerning=$7
 
 ~/.bash_profile
 
@@ -27,7 +28,7 @@ T35245tspan=YES
 EinzeilTags=YES
 
 
-#---- 
+#----
 export i3=$2.svg
 
 if [ -z ${SVGCleaner+x} ] || [ -z "$SVGCleaner" ]; then
@@ -42,6 +43,9 @@ fi
 if [ -z ${validValid+x} ] || [ -z "$validValid" ]; then
  validValid=NO
 fi
+if [ -z ${safe+x} ] || [ -z "$safe" ]; then
+ safe=NO
+fi
 if [ -z ${kerningKerning+x} ] || [ -z "$kerningKerning" ]; then
  kerningKerning=NO
 fi
@@ -53,10 +57,11 @@ echo c $SVGCleaner
 echo e $EinzeilTags
 echo s $ScourScour
 echo v $validValid
+echo sa $safe
 echo k $kerningKerning
 
 echo "\n \n" >> outbut.log
-echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid k $kerningKerning >> outbut.log
+echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid sa $safe k $kerningKerning >> outbut.log
 echo 1 $1 2 $2 3$3 4 $4 5 $5 6 $6 7 $7 >> outbut.log
 
 
@@ -97,7 +102,7 @@ else
  if [ $PC = WikiMedia ]; then
   # do not remove this on convert it might be needed to check
   #rm -f $1
-  #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i 
+  #wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
   #export ScourJK="python3 -m scour.scour"
   export ScourJK="/data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour"
   #echo $ScourJK >foobar064
@@ -129,6 +134,24 @@ sed -ri "s/inkscape:version=\"0.(4[\. r[:digit:]]+|91 r13725)\"//g" $i # https:/
 
  sed -i "s/ inkscape:connector-curvature=\"0\"//g" $i #https://commons.wikimedia.org/wiki/File:Royal_Monogram_of_Princess_Adityadhornkitikhun.svg
 
+if [ $safe = 'YES' ];
+ then
+ #https://commons.wikimedia.org/wiki/User:JoKalliauer/IllegalSVGPattern
+ sed -ri "s/  <d:SVGTestCase xmlns:d=\"http:\/\/www.w3.org\/2000\/02\/svg\/testsuite\/description\/\"/  <d:SVGTestCase xmlns:d=\"http:\/\/www.w3.org\/2000\/svg\" xmlnsd=\"http:\/\/www.w3.org\/2000\/02\/svg\/testsuite\/description\/\"/" $i
+ sed -ri "s/ xmlns=\"http:\/\/www.w3.org\/1999\/xhtml\"/ xmlnsDeactivated=\"http:\/\/www.w3.org\/1999\/xhtml\"/" $i
+ sed -ri  "s/ xmlns(|:bd)=\"http:\/\/(www.|)example.org\/[[[:alpha:]]*\"/ xmlns\1=\"http:\/\/www.inkscape.org\/namespaces\/inkscape\"/" $i
+ sed -ri "s/:href=(\"|')([[:lower:]\.]+)([-[:alnum:]\/\.#_:]*)(\"|')/href=\1\2\3\4/" $i
+ sed -ri "s/<(animate|set)([[:alpha:]=\"':# ]*) attributeName=(\"|')xlink:href(\"|')/<\1\2 attributeName=\3xlinkDeactivated\4/" $i
+ sed -ri "s/<set([[:alpha:] =\"]*) xlink:href=/<set\1 xlinkDeactivated=/" $i
+ sed -ri "s/<(d:testDescription) ([[:alnum:]:\"=\/. ]*)href=\"([[htp\.\/]]*)/<\1 \2hrefDeactivated=\"\3/" $i
+ sed -ri "s/<image xlink:href=\"data:image\/svg\+xml;base64,/<image xlinkhref=\"data:image\/svg+xml;base64,/" $i
+ sed -ri "s/@import url\(([[:lower:]\.\/\"]*)([-[:alnum:]\/\.#\"]*)\)/Deactivated urlDeactivated\(\1\2\)/" $i
+ sed -ri "s/(src:|@import) url\(([[:lower:]\.\/\"]*)([-[:alnum:]\/\.#\"]*)\)/\1 urlDeactivated\(\2\3\)/" $i
+ sed -ri "s/ xlink:href=\"url\(\#([[:alpha:]]*)\)\"/ xlink:href=\"\#\1\"/" $i
+ sed -ri "s/<script/<Deactivatedscript/" $i
+ sed -ri "s/<\/script>/<\/Deactivatedscript>/" $i
+ sed -ri "s/[[:blank:]]on([[:lower:]]+)=(\"|')([[:alpha:]]+[[:alnum:]_,' \(\)\.#;]*)/ deactivatedon\1=\2\3/g" $i
+fi
 
 if [ $validValid = 'YES' ];
  then
@@ -136,9 +159,9 @@ if [ $validValid = 'YES' ];
  echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
  #rm tmp.svg
  if [ $PC = WikiMedia ]; then
-  /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data  
+  /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
  else
-  python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data 
+  python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
  fi
  #sed -n '1p' $i2 > foobar119
  python3 ./FFlow2TextBySed.py $i2 $i3
@@ -157,7 +180,7 @@ else
    sed -n '1p' $i2 > foobar149
   else
    sed -n '1p' $i > foobar152.del
-   python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data 
+   python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
    sed -n '1p' $i2 > foobar154.del
   fi
   python3 ./FFlow2TextBySed.py $i2 $i3
@@ -184,7 +207,7 @@ if [ $SVGCleaner = 'YES' ]; then
  svgcleaner $i $i2 --allow-bigger-file --indent 1 --resolve-use no --apply-transform-to-gradients yes --apply-transform-to-shapes yes --convert-shapes yes --group-by-style no --join-arcto-flags no --join-style-attributes no --merge-gradients yes --regroup-gradient-stops yes --remove-comments no --remove-declarations no --remove-default-attributes yes --remove-desc yes --remove-dupl-cmd-in-paths yes --remove-dupl-fegaussianblur yes --remove-dupl-lineargradient yes --remove-dupl-radialgradient yes --remove-gradient-attributes yes --remove-invalid-stops yes --remove-invisible-elements no --remove-metadata no --remove-needless-attributes yes --remove-nonsvg-attributes no --remove-nonsvg-elements no --remove-text-attributes no --remove-title no --remove-unreferenced-ids no --remove-unresolved-classes yes --remove-unused-coordinates yes --remove-unused-defs yes --remove-version yes --remove-xmlns-xlink-attribute yes --simplify-transforms yes --trim-colors yes --trim-ids no --trim-paths yes --ungroup-defs yes --ungroup-groups no --use-implicit-cmds yes --list-separator comma --paths-to-relative yes --remove-unused-segments yes --convert-segments yes --apply-transform-to-paths no --coordinates-precision 2 --paths-coordinates-precision 5 --properties-precision 3 --transforms-precision 7 #--copy-on-error
  rm $i
  mv $i2 $i
-else 
+else
  echo no SVGCleaner $SVGCleaner
 fi
 if [ $validValid = 'YES' ]; then
@@ -273,7 +296,7 @@ fi
 #copied form validbySed
 sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/[[:space:]\r\n]*<rdf:RDF>[[:space:]\r\n]*<cc:Work( rdf:about=\"\"|)>[[:space:]\r\n]*<dc:format>image\/svg\+xml<\/dc:format>[[:space:]\r\n]*<dc:type rdf:resource=\"http:\/\/purl.org\/dc\/dcmitype\/StillImage\"\/>([[:space:]\r\n]*<dc:title\/>|)[[:space:]\r\n]*<\/cc:Work>[[:space:]\r\n]*<\/rdf:RDF>//" $i
 sed -i -e ':a' -e 'N' -e '$!ba' -e "s/<metadata id=\"metadata[[:digit:]]*\">[[:space:]\r\n]*<\/metadata>//" $i
-   
+
 
 #W3C: Error: there is no attribute "sodipodi:version"
 #W3C: Error: element "sodipodi:namedview" undefined
@@ -287,7 +310,7 @@ sed -i -e ':a' -e 'N' -e '$!ba' -e "s/<metadata id=\"metadata[[:digit:]]*\">[[:s
    sed -i "s/<sodipodi:namedview id=\"namedview[[:digit:]]*\" bordercolor=\"#666666\" borderopacity=\"1\" gridtolerance=\"10\" guidetolerance=\"10\" inkscape:current-layer=\"svg[[:digit:]]*\" inkscape:cx=\"[[:digit:].]*\" inkscape:cy=\"[-[:digit:].]*\" inkscape:pageopacity=\"0\" inkscape:pageshadow=\"2\" inkscape:window-height=\"480\" inkscape:window-maximized=\"0\" inkscape:window-width=\"640\" inkscape:window-x=\"0\" inkscape:window-y=\"0\" inkscape:zoom=\"0.[[:digit:]]*\" objecttolerance=\"10\" pagecolor=\"#ffffff\" showgrid=\"false\"\/>//" $i
 
    ## invalid file
-   
+
 ## fonts
 sed -ri 's/ font-family=\"(Times New Roman)\"/ font-family=\"Liberation Serif,\1\"/g' $i #as automatic
 
@@ -296,22 +319,22 @@ if [ $kerningKerning = 'YES' ]; then
 	#put viewBox at the beginning (otherwise I will have a variable to less)
 	sed -ri 's/<svg([-[:alnum:]=\" \.\/:\,\(\)_#]+) viewBox="([-[:digit:] \.]+)"([-[:alnum:]=\" \.\/:\,\(\);#]*)>/<svg viewBox="\2"\1\3>/' $i
 	sed -ri 's/\r/\n/g' $i
-	
+
     #Define file as a variable
     export h=$(sed -r 's/<svg viewBox="([-[:digit:]]+) ([-[:digit:]]+) ([[:digit:]]+)\.([[:digit:]])([[:digit:]]*) ([[:digit:]]+)\.([[:digit:]])([[:digit:]]*)"([-[:alnum:]=\" \.\/:\,\(\)_;]+)>/<svg viewBox="\1 \2 \3\4.\50 \6\7.\80"\9><g transform="scale(10)">/' $i)
-    
+
     #Reading out the relevant line
     export j=$(ls -l|grep -E "viewBox=\"[-[:digit:].]{1,8} [-[:digit:].]{1,8} [[:digit:].]{2,11} [[:digit:].]{2,11}" $i)
-    
+
     #Insert a special character to define the point of splitting
     export l=$(echo $j | sed -e "s/viewBox=\"/>/g" )
-    
+
     #split at this special character and take the part afterwards
     export m=$(echo $l | cut -f2 -d">")
-    
+
     #Multiply the four numbers by a factor of 10
     export n=$(echo $m | awk  '{printf "%f %f %f %f\n",$1*10,$2*10,$3*10,$4*10}')
-    
+
     #Replace the old four numbers with the new four numbers
     sed -ri "s/<svg([-[:alnum:]=\" \.\/:;\,#]*) viewBox=\"[-[:digit:]\.]+ [-[:digit:]\.]+ [[:digit:]\.]+ [[:digit:]\.]+\"([-[:alnum:]=\" \.\/:\,#\(\)_;]+)>/<svg\1 viewBox=\"$n\"\2>\n<g transform=\"scale(10)\">/" $i
  #----

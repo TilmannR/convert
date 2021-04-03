@@ -148,8 +148,8 @@ if [ $safe = 'YES' ];
  sed -ri "s/@import url\(([[:lower:]\.\/\"]*)([-[:alnum:]\/\.#\"]*)\)/Deactivated urlDeactivated\(\1\2\)/" $i
  sed -ri "s/(src:|@import) url\(([[:lower:]\.\/\"]*)([-[:alnum:]\/\.#\"]*)\)/\1 urlDeactivated\(\2\3\)/" $i
  sed -ri "s/ xlink:href=\"url\(\#([[:alpha:]]*)\)\"/ xlink:href=\"\#\1\"/" $i
- sed -ri "s/<script/<Deactivatedscript/" $i
- sed -ri "s/<\/script>/<\/Deactivatedscript>/" $i
+ sed -ri "s/<script/<Deactivatedscript/g" $i
+ sed -ri "s/<\/script>/<\/Deactivatedscript>/g" $i
  sed -ri "s/[[:blank:]]on([[:lower:]]+)=(\"|')([[:alpha:]]+[[:alnum:]_,' \(\)\.#;]*)/ deactivatedon\1=\2\3/g" $i
 fi
 

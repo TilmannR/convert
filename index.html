@@ -52,6 +52,32 @@
 -->
 </form>
 
+<h2>Repairs the following bugs</h2>
+<p><b>Function details:</b> Some Librsvg-Bugs should be repaired:
+</p>
+<ul><li><a href="https://phabricator.wikimedia.org/T68672" class="extiw" title="phab:T68672">phab:T68672</a> <code>sed -i "s/&lt;style&gt;/&lt;style type=\"text\/css\"&gt;/"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:Cityfone_logo.svg" title="File:Cityfone logo.svg">File:Cityfone_logo.svg</a>)</li>
+<li><a href="https://phabricator.wikimedia.org/T32033" class="extiw" title="phab:T32033">phab:T32033</a> <code>sed -ri 's/stroke-dasharray=\"([[:digit:]\., ]*)([[:digit:]\.]+) ([[:digit:]\., ]+)\"/stroke-dasharray=\"\1\2,\3\"/g'</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:EKG-Reto_001.svg" title="File:EKG-Reto 001.svg">File:EKG-Reto_001.svg</a>)</li>
+<li><a href="https://phabricator.wikimedia.org/T55899" class="extiw" title="phab:T55899">phab:T55899</a> <code>sed -ri "s/&lt;mask([[:alnum:] =\"]*) maskUnits=\"userSpaceOnUse\"( id=\"[[:alnum:]_]+\"|)&gt;/&lt;mask\1\2&gt;/g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:SVG_mask.svg" title="File:SVG mask.svg">File:SVG_mask.svg</a>)</li>
+<li><a href="https://phabricator.wikimedia.org/T184369" class="extiw" title="phab:T184369">phab:T184369</a> <code>sed -ri "s/font-family=\"'([-[:alnum:] ]*)'(|,[-[:lower:]]+)\"/font-family=\'\1\'/g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:T184369.svg" title="File:T184369.svg">File:T184369.svg</a>)</li>
+<li><a href="https://phabricator.wikimedia.org/T35245" class="extiw" title="phab:T35245">phab:T35245</a> one of the following:
+<ul><li><code>sed -ri "s/&lt;tspan([-[:alnum:]\.\"\#\ =]*) x=\"([-[:digit:]\.]+)( |,)([-[:digit:]\. ,]+)\"([-[:alnum:]\.\"\#\ =]*)&gt;/&lt;tspan x=\"\2\" \1 \5&gt;/g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:WI_Area_Codes.svg" title="File:WI Area Codes.svg">File:WI_Area_Codes.svg</a>)</li>
+<li><code>sed -ri "s/&lt;tspan([-[:alnum:]\.\"\#\ =]*) x=\"([-[:digit:]\.]+)( |,)([-[:digit:]\. ,]+)\"([-[:alnum:]\.\"\#\ =]*)&gt;([[:alnum:]])/&lt;tspan x=\"\2\" \1 \5&gt;\6&lt;\/tspan&gt;&lt;tspan x=\"\4\" \1 \5&gt;/g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:Kalliauer_et_al_2018_Acta_Mechanica_Fig11.svg" title="File:Kalliauer et al 2018 Acta Mechanica Fig11.svg">File:Kalliauer_et_al_2018_Acta_Mechanica_Fig11.svg</a>)</li></ul></li>
+<li><a href="https://phabricator.wikimedia.org/T193929" class="extiw" title="phab:T193929">phab:T193929</a> <code>sed -i "s/ xlink:href=\"data:image\/jpg;base64,/ xlink:href=\"data:image\/jpeg;base64,/g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:Barents_Sea_map_hr.svg" title="File:Barents Sea map hr.svg">File:Barents_Sea_map_hr.svg</a>)</li>
+<li><a href="https://phabricator.wikimedia.org/T194192" class="extiw" title="phab:T194192">phab:T194192</a><code>sed -ri "s/&lt;svg([-[:alnum:]=\" ]*) viewBox=\"0,0,([[:digit:]\.]*),([[:digit:]\.]*)\"/&lt;svg\1 viewBox=\"0 0 \2 \3\"/g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:WikiImplementationBug_T194192.svg" title="File:WikiImplementationBug T194192.svg">File:WikiImplementationBug_T194192.svg</a>)</li>
+<li>remove CDATA  <code>sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/&lt;\!\[CDATA\[([[:alnum:]=+\/\t\n[:space:]@:;\(\)\"\,\'\{\}\-])*\t\]\]&gt;[[:space:]]*//g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:Map-Awala_Yalimpo.svg" title="File:Map-Awala Yalimpo.svg">File:Map-Awala_Yalimpo.svg</a>)</li>
+<li>remove jpeg in metadata <code>sed -ri -e ':a' -e 'N' -e '$!ba' -e "s/&lt;xapGImg:image&gt;([[:alnum:][:space:]\/+])*={0,2}[[:space:]]*&lt;\/xapGImg:image&gt;//g"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:Harta_dialectului_lemosin.svg" title="File:Harta dialectului lemosin.svg">File:Harta_dialectului_lemosin.svg</a>)</li>
+<li>add mimetype: <code>sed -i "s/ xlink:href=\"data:;base64,\/9j\/4AAQSkZJRgABAgAAZABkAAD\/7AARRHVja3kAAQAEAAAAHgAA/ xlink:href=\"data:image\/jpeg;base64,\/9j\/4AAQSkZJRgABAgAAZABkAAD\/7AARRHVja3kAAQAEAAAAHgAA/"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:Asia.svg" title="File:Asia.svg">File:Asia.svg</a>) <code>sed -ri "s/ xlink:href=\"data:;base64,( |)iVBORw0KGgoAAAANSUhEUgAA/ xlink:href=\"data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgAA/"</code> (f.e. <a href="https://commons.wikimedia.org/wiki/File:Historical_map_of_Georgia_1267_BC.svg" title="File:Historical map of Georgia 1267 BC.svg">File:Historical_map_of_Georgia_1267_BC.svg</a>)</li>
+<li>Replaced "href" with "xlink:href" (f.e. <a href="https://commons.wikimedia.org/wiki/File:Eliandthethirteenthconfession_logo.svg" title="File:Eliandthethirteenthconfession logo.svg">File:Eliandthethirteenthconfession_logo.svg</a> done by <a href="/w/index.php?title=User:TilmannR&amp;action=edit&amp;redlink=1" class="new" title="User:TilmannR (page does not exist)">User:TilmannR</a>)</li>
+<li><a href="https://phabricator.wikimedia.org/T32033" class="extiw" title="phab:T32033">phab:T32033</a> <code>stroke-dasharray</code> in PNG thumbnails does not support spaces as separators</li>
+<li><a href="https://phabricator.wikimedia.org/T35245" class="extiw" title="phab:T35245">phab:T35245</a> Multiple x-coordinates in text/tspan</li>
+<li><a href="https://phabricator.wikimedia.org/T43424" class="extiw" title="phab:T43424">phab:T43424</a> <code>flowRoot</code> (defined only in deprecated SVG 1.2 draft) not supported by rsvg</li>
+<li><a href="https://phabricator.wikimedia.org/T55899" class="extiw" title="phab:T55899">phab:T55899</a> SVG masks fail to render (or even display)</li>
+<li><a href="https://phabricator.wikimedia.org/T68672" class="extiw" title="phab:T68672">phab:T68672</a> SVG style element ignored if no <code>type="text/css"</code> attribute is specified</li>
+<li><a href="https://phabricator.wikimedia.org/T184369" class="extiw" title="phab:T184369">phab:T184369</a> <code>font-family="'font name'"</code> and <code>style="font-family:'font name'"</code> does not work in SVG rendering</li>
+<li><a href="https://phabricator.wikimedia.org/T194192" class="extiw" title="phab:T194192">phab:T194192</a> <code>viewBox="0,0,620,472"</code> should be the same as <code>viewBox="0 0 620 472"</code></li>
+<li><a href="https://phabricator.wikimedia.org/T217990" class="extiw" title="phab:T217990">phab:T217990</a> arc flags without space not regogniced</li></ul>
+
+
 ----
 
 <h1>Extract PNG from FakeSVG</h1>

@@ -32,9 +32,9 @@ if ( $safeEnabled ) {
 }
 $sieben='NO';
 $svgoEnabled = isset( $_POST['svgo'] );
-$sieben='NO';
+$acht='NO';
 if ( $svgoEnabled ) {
-	$sieben = 'YES';
+	$acht = 'YES';
 }
 
 $targetName = $fileName . '.svg';

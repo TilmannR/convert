@@ -67,8 +67,8 @@ echo sa $safe
 echo k $kerningKerning
 
 echo "\n \n" >> outbut.log
-echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid sa $safe k $kerningKerning >> outbut.log
-echo 1 $1 2 $2 3$3 4 $4 5 $5 6 $6 7 $7 >> outbut.log
+echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid sa $safe k $kerningKerning o $SvgoSvgo >> outbut.log
+echo 1 $1 2 $2 3$3 4 $4 5 $5 6 $6 7 $7 8 $8 >> outbut.log
 
 
 #if [ $SVGCleaner = '' ]; then

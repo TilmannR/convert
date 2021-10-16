@@ -52,6 +52,10 @@ fi
 if [ $validValid = "YES" ]; then
  ScourScour="YES"
 fi
+if [ -z ${SvgoSvgo+x} ]; then
+ echo set SvgoSvgo to yes
+ SvgoSvgo=YES
+fi
 
 echo c $SVGCleaner
 echo e $EinzeilTags
@@ -156,6 +160,13 @@ if [ $safe = 'YES' ];
  sed -ri "s/<script/<Deactivatedscript/g" $i
  sed -ri "s/<\/script>/<\/Deactivatedscript>/g" $i
  sed -ri "s/[[:blank:]]on([[:lower:]]+)=(\"|')([[:alpha:]]+[[:alnum:]_,' \(\)\.#;]*)/ deactivatedon\1=\2\3/g" $i
+fi
+
+if [ $SvgoSvgo = 'YES' ]; then
+ echo runSvgoSvgo,JK YN $SvgoSvgo, i $i ,ii $i2
+ svgo -i $i -o $i2 -p 5 --pretty --indent=1 --multipass
+ rm $i
+ mv $i2 $i
 fi
 
 if [ $validValid = 'YES' ];

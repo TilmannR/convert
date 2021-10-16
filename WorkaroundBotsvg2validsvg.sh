@@ -166,7 +166,9 @@ fi
 
 if [ $SvgoSvgo = 'YES' ]; then
  echo runSvgoSvgo,JK YN $SvgoSvgo, i $i ,ii $i2
+ sed -n '1p' $i2 > foobar169.del
  svgo -i $i -o $i2 -p 5 --pretty --indent=1 --multipass
+ sed -n '1p' $i2 > foobar171.del
  rm $i
  mv $i2 $i
 fi

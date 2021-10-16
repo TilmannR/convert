@@ -22,6 +22,7 @@ ScourScour=$4
 validValid=$5
 safe=$6
 kerningKerning=$7
+SvgoSvgo=$8
 
 ~/.bash_profile
 

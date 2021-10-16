@@ -30,6 +30,11 @@ $sechs='NO';
 if ( $safeEnabled ) {
 	$sechs = 'YES';
 }
+$svgoEnabled = isset( $_POST['svgo'] );
+$sieben='NO';
+if ( $svgoEnabled ) {
+	$sieben = 'YES';
+}
 
 $targetName = $fileName . '.svg';
 if ( $_FILES['file']['size'] > 5*0x100000 ) {
@@ -43,7 +48,7 @@ if ( !move_uploaded_file( $uploadName, $fileName ) ) {
   echo( 'cant move uploaded file' );
   die();
 }
-exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) . ' ' . $drei . ' ' . $vier . ' ' . $funf . ' ' . $sechs);
+exec( './WorkaroundBotsvg2validsvg.sh ' . escapeshellarg( $fileName ) . ' ' . escapeshellarg( $targetName ) . ' ' . $drei . ' ' . $vier . ' ' . $funf . ' ' . $sechs . ' ' .  $sieben);
 unlink( $fileName );
 // $file = 'tmp_svg2svg.log';
 // // Öffnet die Datei, um den vorhandenen Inhalt zu laden

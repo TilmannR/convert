@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 </head>
 
-<body style="font-family:Arial,Helvetica,sans-serif;">
+<body style="font-family:Liberation Sans,Arial,Helvetica,sans-serif;">
 <!--
 <h1>Convert PDF to SVG (<a href="https://tools.wmflabs.org/convert/">Rilkes convert tool</a>)</h1>
 <form action="pdf2svg.php" method="POST" enctype="multipart/form-data">
@@ -33,6 +33,8 @@
 <input type="checkbox" name="svgcleaner" value="1" id="svgcleaner" /><label for="svgcleaner"> run svgcleaner</label>
 <br />
 <input type="checkbox" name="scour" value="1" id="scour" /><label for="scour"> run scour and convert flowRoot to valid SVG1.1-text</label>
+<br />
+<input type="checkbox" name="svgo" value="1" id="svgo" /><label for="svgo"> run svgo</label>
 <br />
 <input type="checkbox" name="valid" value="1" id="valid" /><label for="valid"> make file valid (not recommended, always uses scour&svgcleaner)</label>
 <br />

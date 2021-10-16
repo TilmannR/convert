@@ -9,6 +9,7 @@
 # $5 ... valid (YES or NO)
 # $6 ....safe (YES or NO)
 # $7 ....kerning (YES or NO)
+# $8 ....svgo (YES or NO)
 
 
 #rm -f $1
@@ -120,7 +121,7 @@ else
  fi
 fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
-echo HN $HOSTNAME > foobar070.del
+#echo HN $HOSTNAME > foobar070.del
 
 # ---- Begin ----
 
@@ -195,12 +196,12 @@ else
    /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
    sed -n '1p' $i2 > foobar149
   else
-   sed -n '1p' $i > foobar152.del
+   #sed -n '1p' $i > foobar152.del
    python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
-   sed -n '1p' $i2 > foobar154.del
+   #sed -n '1p' $i2 > foobar154.del
   fi
   python3 ./FFlow2TextBySed.py $i2 $i3
-  sed -n '1p' $i3 > foobar133
+  #sed -n '1p' $i3 > foobar133
   rm $i
   mv $i3 $i
  else

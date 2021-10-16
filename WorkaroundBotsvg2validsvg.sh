@@ -167,9 +167,10 @@ fi
 if [ $SvgoSvgo = 'YES' ]; then
  echo runSvgoSvgo,JK YN $SvgoSvgo, i $i ,ii $i2
  sed -n '1p' $i > foobar169.del
- svgo -i $i -o $i2 -p 5 --pretty --indent=1 --multipass  >> outbut.log
- sed -n '1p' $i > foobar171.del
- sed -n '1p' $i2 > foobar172.del
+ svgo -i $i -o $i2 -p 5 --pretty --indent=1 --multipass  > foobar170.del
+ svgo -i $i -o $i2 -p 5 --pretty --indent=1 --multipass  &> foobar171.del
+ sed -n '1p' $i > foobar172.del
+ sed -n '1p' $i2 > foobar173.del
  cp $i file.svg
  rm $i
  mv $i2 $i

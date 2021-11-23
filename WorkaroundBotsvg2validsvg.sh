@@ -9,6 +9,7 @@
 # $5 ... valid (YES or NO)
 # $6 ....safe (YES or NO)
 # $7 ....kerning (YES or NO)
+# $8 ....svgo (YES or NO)
 
 
 #rm -f $1
@@ -21,6 +22,7 @@ ScourScour=$4
 validValid=$5
 safe=$6
 kerningKerning=$7
+SvgoSvgo=$8
 
 ~/.bash_profile
 
@@ -52,6 +54,10 @@ fi
 if [ $validValid = "YES" ]; then
  ScourScour="YES"
 fi
+if [ -z ${SvgoSvgo+x} ]; then
+ echo set SvgoSvgo to yes
+ SvgoSvgo=YES
+fi
 
 echo c $SVGCleaner
 echo e $EinzeilTags
@@ -61,8 +67,8 @@ echo sa $safe
 echo k $kerningKerning
 
 echo "\n \n" >> outbut.log
-echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid sa $safe k $kerningKerning >> outbut.log
-echo 1 $1 2 $2 3$3 4 $4 5 $5 6 $6 7 $7 >> outbut.log
+echo c $SVGCleaner e $EinzeilTags s $ScourScour v $validValid sa $safe k $kerningKerning o $SvgoSvgo >> outbut.log
+echo 1 $1 2 $2 3$3 4 $4 5 $5 6 $6 7 $7 8 $8 >> outbut.log
 
 
 #if [ $SVGCleaner = '' ]; then
@@ -116,7 +122,7 @@ else
  fi
 fi
 export PATH=/data/project/svgworkaroundbot/SVGWorkaroundBot/cleanupSVG-master/:/data/project/svgworkaroundbot/prgm/svgcleaner/:$PATH
-echo HN $HOSTNAME > foobar070.del
+#echo HN $HOSTNAME > foobar070.del
 
 # ---- Begin ----
 
@@ -158,6 +164,18 @@ if [ $safe = 'YES' ];
  sed -ri "s/[[:blank:]]on([[:lower:]]+)=(\"|')([[:alpha:]]+[[:alnum:]_,' \(\)\.#;]*)/ deactivatedon\1=\2\3/g" $i
 fi
 
+if [ $SvgoSvgo = 'YES' ]; then
+ echo runSvgoSvgo,JK YN $SvgoSvgo, i $i ,ii $i2
+ sed -n '1p' $i > foobar169.del
+ svgo -i $i -o $i2 -p 5 --pretty --indent=1 --multipass  > foobar170.del
+ svgo -i $i -o $i2 -p 5 --pretty --indent=1 --multipass  &> foobar171.del
+ sed -n '1p' $i > foobar172.del
+ sed -n '1p' $i2 > foobar173.del
+ cp $i file.svg
+ rm $i
+ mv $i2 $i
+fi
+
 if [ $validValid = 'YES' ];
  then
  export scour
@@ -184,12 +202,12 @@ else
    /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
    sed -n '1p' $i2 > foobar149
   else
-   sed -n '1p' $i > foobar152.del
+   #sed -n '1p' $i > foobar152.del
    python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
-   sed -n '1p' $i2 > foobar154.del
+   #sed -n '1p' $i2 > foobar154.del
   fi
   python3 ./FFlow2TextBySed.py $i2 $i3
-  sed -n '1p' $i3 > foobar133
+  #sed -n '1p' $i3 > foobar133
   rm $i
   mv $i3 $i
  else

@@ -87,7 +87,7 @@ elif  [ $HOSTNAME = localhost.localdomain ]; then
  PC=locaJK
 elif  [ $HOSTNAME = fedora ]; then
  PC=locaJK
-elif [[ $HOSTNAME =  tools-sgewebgrid-lighttpd-* ]]; then
+elif [[ $HOSTNAME =  tools-sgewebgrid-lighttpd-* ]] || [[ $HOSTNAME = tools-sgeweblight-10-20 ]]; then
  PC=WikiMedia
 elif  [ $HOSTNAME = lws84.imws.tuwien.ac.at ]; then
  PC=locaJK

@@ -198,10 +198,11 @@ else
   echo runScourScour,JK $ScourJK, YN $ScourScour, i $i ,ii $i2
   #rm tmp.svg  # /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i
   cp $i l200.svg
+  sed -n '1p' $i > foobar201
   if [ $PC = WikiMedia ]; then
-   sed -n '1p' $i > foobar148
+   sed -n '1p' $i > foobar203
    /data/project/svgworkaroundbot/prgm2/pythonJK/PythonIn/bin/python3.7 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
-   sed -n '1p' $i2 > foobar149
+   sed -n '1p' $i2 > foobar205
   else
    #sed -n '1p' $i > foobar152.del
    python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data

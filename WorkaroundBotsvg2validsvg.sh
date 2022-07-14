@@ -207,11 +207,12 @@ else
    python3 -m scour.scour -i $i -o $i2 --keep-unreferenced-defs --remove-descriptions --strip-xml-space  --set-precision=6 --indent=space --nindent=1 --renderer-workaround --set-c-precision=6 --protect-ids-noninkscape  --disable-simplify-colors  --keep-editor-data
    #sed -n '1p' $i2 > foobar154.del
   fi
+  cp $i2 l210.svg
   python3 ./FFlow2TextBySed.py $i2 $i3
   #sed -n '1p' $i3 > foobar133
   rm $i
   mv $i3 $i
-  cp $i3 l214.svg
+  cp $i l214.svg
  else
   echo no ScourScour $ScourScour
  fi

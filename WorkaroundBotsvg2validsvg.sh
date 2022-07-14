@@ -93,6 +93,7 @@ elif  [ $HOSTNAME = lws84.imws.tuwien.ac.at ]; then
  PC=locaJK
 else
  echo did not recognice HOSTNAME $HOSTNAME
+ PC=$HOSTNAME
 fi
 echo $PC
 echo $PC >> outbut.log

@@ -95,6 +95,7 @@ else
  echo did not recognice HOSTNAME $HOSTNAME
 fi
 echo $PC
+echo $PC >> outbut.log
 
 if [ -z "$1" ]
   then

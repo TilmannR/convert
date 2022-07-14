@@ -76,21 +76,21 @@ echo 1 $1 2 $2 3$3 4 $4 5 $5 6 $6 7 $7 8 $8 >> outbut.log
 #fi
 
 if [ $HOSTNAME = LAPTOP-K1FUMMIP ]; then
- PC=local
+ PC=locaJK
 elif [ $HOSTNAME = jkalliau-Z87M-D3H ]; then
- PC=local
+ PC=locaJK
 elif [ $HOSTNAME = tools-sgebastion-07 ] || [ $HOSTNAME = tools-sgebastion-10 ]; then
  PC=WikiMedia
 elif [ $HOSTNAME = DESKTOP-7VKND0M ]; then
- PC=local
+ PC=locaJK
 elif  [ $HOSTNAME = localhost.localdomain ]; then
- PC=local
+ PC=locaJK
 elif  [ $HOSTNAME = fedora ]; then
- PC=local
+ PC=locaJK
 elif [[ $HOSTNAME =  tools-sgewebgrid-lighttpd-* ]]; then
  PC=WikiMedia
 elif  [ $HOSTNAME = lws84.imws.tuwien.ac.at ]; then
- PC=local
+ PC=locaJK
 else
  echo did not recognice HOSTNAME $HOSTNAME
 fi
@@ -105,7 +105,7 @@ if [ -z "$1" ]
 	fi
 fi
 
-if [ $PC = local ]; then
+if [ $PC = locaJK ]; then
  #rm -f $1
  wget -q https://commons.wikimedia.org/wiki/Special:FilePath/$i -O $i
  export ScourJK="python3 -m scour.scour"
